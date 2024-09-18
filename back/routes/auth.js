@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const generateJWT = require('../utils/generateJWT');
 const User = require('../models/user');
 const router = express.Router();
@@ -48,7 +47,12 @@ router.post('/login', async (req, res) => {
 
         const token = generateJWT(user.id);
         console.log('Login successful, token generated');
-        res.json({ token });
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 3600000,
+        });
+        res.status(200).json({ msg: 'Login successful', token });
     } catch (err) {
         console.error('Error in login route:', err);
         res.status(500).json({ msg: 'Server error', err });
