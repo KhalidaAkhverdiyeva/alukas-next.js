@@ -1,3 +1,4 @@
+import SwiperComponent from "@/components/swiperHero";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -11,7 +12,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      <h1>Welcome to the Homepage</h1>
+      <SwiperComponent />
     </div>
   );
 }
