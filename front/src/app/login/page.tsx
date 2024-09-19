@@ -42,6 +42,10 @@ export default function LoginPage() {
     }
   };
 
+  const handleCreateAccount = () => {
+    router.push("/register");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white w-[500px] flex flex-col items-center rounded-md shadow-md">
@@ -50,7 +54,7 @@ export default function LoginPage() {
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="w-full pt-[46px] pb-[54px] px-[54px] bg-white"
+          className="w-full pt-[46px] pb-[20px] px-[54px] bg-white"
         >
           <div className="mb-[30px]">
             <input
@@ -82,14 +86,21 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full py-[10px] px-[45px] bg-[#222222] text-[18px]  text-white    focus:outline-none "
+            className="w-full py-[10px] px-[45px] bg-[#222222] text-[18px] text-white focus:outline-none transition-colors duration-300 ease-in-out "
           >
             Login
           </button>
-          <button className="w-full mt-[20px] py-[10px] px-[45px] border-solid border-[1px] border-black  text-[18px]      focus:outline-none ">
+        </form>
+
+        <div className="flex flex-col gap-[20px] w-full px-[54px] pb-[50px]">
+          <button
+            type="button"
+            onClick={handleCreateAccount}
+            className="w-full py-[10px] px-[45px] border-solid border-[1px] border-black text-[18px] transition-colors duration-300 ease-in-out focus:outline-none hover:bg-[#222222] hover:text-white"
+          >
             Create Account
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

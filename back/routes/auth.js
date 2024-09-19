@@ -28,8 +28,15 @@ router.post('/register', async (req, res) => {
 
         user = new User({ username, email, password: hashedPassword });
         await user.save();
+        const token = generateJWT(user.id);
 
-        res.status(201).json({ msg: 'User registered successfully' });
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 3600000,
+        });
+
+        res.status(201).json({ msg: 'User registered successfully', token });
     } catch (err) {
         console.error('Error in register route:', err);
         res.status(500).json({ msg: 'Server error', err });
