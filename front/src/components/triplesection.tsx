@@ -1,13 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import HeroCard from "../components/herotriplecard";
-
-interface Hero {
-  _id: string;
-  imageUrl: string;
-  title: string;
-  subtitle: string;
-}
+import { Hero } from "../type/herotype";
 
 const TripleSection: React.FC = () => {
   const [heroes, setHeroes] = useState<Hero[]>([]);

@@ -9,24 +9,20 @@ import { PiShoppingCartSimpleLight } from "react-icons/pi";
 import { BsChevronDown } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import DropdownMenu from "./dropdown";
+
 import Link from "next/link";
 
 const Header = () => {
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-
-  const headerHeight = 200;
-
   const handleScroll = () => {
     const scrollTop = window.scrollY;
-
-    if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
+    if (scrollTop > lastScrollTop) {
       setIsHeaderVisible(false);
     } else {
       setIsHeaderVisible(true);
     }
-
-    setLastScrollTop(scrollTop <= 0 ? 0 : scrollTop);
+    setLastScrollTop(scrollTop <= 100 ? 0 : scrollTop);
   };
 
   useEffect(() => {
@@ -38,7 +34,7 @@ const Header = () => {
 
   return (
     <div
-      className={`sticky top-0 w-[100%] z-[60] items-center shadow-custom  transition-transform duration-300 ${
+      className={`w-full sticky top-0 z-[700] items-center shadow-custom transition-transform duration-300 ${
         isHeaderVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
