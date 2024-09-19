@@ -14,13 +14,18 @@ import Link from "next/link";
 const Header = () => {
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+
+  const headerHeight = 200;
+
   const handleScroll = () => {
     const scrollTop = window.scrollY;
-    if (scrollTop > lastScrollTop) {
+
+    if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
       setIsHeaderVisible(false);
     } else {
       setIsHeaderVisible(true);
     }
+
     setLastScrollTop(scrollTop <= 0 ? 0 : scrollTop);
   };
 
@@ -33,7 +38,7 @@ const Header = () => {
 
   return (
     <div
-      className={`sticky top-0 w-[100%]   z-[60] items-center shadow-custom  transition-transform duration-300 ${
+      className={`sticky top-0 w-[100%] z-[60] items-center shadow-custom  transition-transform duration-300 ${
         isHeaderVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >

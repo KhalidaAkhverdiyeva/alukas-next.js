@@ -3,6 +3,7 @@ const app = express()
 const cors = require("cors")
 const connectDB = require('./db/dbserver');
 const authRoutes = require('./routes/auth');
+const heroRoutes = require('./routes/hero')
 require('dotenv').config();
 
 app.use(express.json())
@@ -17,6 +18,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/hero', heroRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
