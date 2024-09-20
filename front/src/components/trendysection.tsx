@@ -29,7 +29,7 @@ const TrendySection = () => {
   }, []);
 
   const nextSlide = () => {
-    if (currentIndex < products.length - 4) {
+    if (currentIndex < products.length - 3) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -63,6 +63,16 @@ const TrendySection = () => {
             {products.map((item, index) => (
               <div className="min-w-[25%] p-4 text-center group" key={index}>
                 <div className="relative group overflow-hidden">
+                  {item.soldOut && (
+                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#414040] text-white text-xs py-[2px] px-1">
+                      sold out
+                    </div>
+                  )}
+                  {item.discountPercent && (
+                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#D73F0F] text-white text-xs py-[2px] px-1">
+                      -{item.discountPercent}%
+                    </div>
+                  )}
                   {item.isNewProduct && (
                     <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-1">
                       New
@@ -107,17 +117,21 @@ const TrendySection = () => {
 
                 <div className="flex flex-col items-center justify-center mt-[15px] relative">
                   <p className="uppercase text-gray-500">{item.name}</p>
-                  <p className="text-[18px] my-[6px]">{item.title}</p>
+                  <p className="text-[18px] my-[6px] text-[#222]">
+                    {item.title}
+                  </p>
 
                   <div className="relative w-full">
                     <div className="flex justify-center items-center gap-[5px] transition-transform duration-300 group-hover:translate-y-5 group-hover:opacity-0">
-                      <div className="text-[18px]">${item.newPrice}</div>
+                      <div className="text-[18px] text-[#222]">
+                        ${item.newPrice}
+                      </div>
                       <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
                         ${item.oldPrice}
                       </div>
                     </div>
 
-                    <button className="absolute font-[500] uppercase w-[130px] flex justify-self-center  border-b-solid border-b-[2px] border-b-black  inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100  px-3 ">
+                    <button className="absolute font-[500] uppercase w-[130px] flex justify-self-center  border-b-solid border-b-[2px] border-b-black  inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100  px-3 ">
                       Add to Cart
                     </button>
                   </div>

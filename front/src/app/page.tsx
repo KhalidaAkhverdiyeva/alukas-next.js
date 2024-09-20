@@ -1,3 +1,5 @@
+import AutumnSection from "@/components/autumnsection";
+import PinkBlock from "@/components/pinkblock";
 import PopularSection from "@/components/popularsection";
 import SwiperComponent from "@/components/swiperHero";
 import TrendySection from "@/components/trendysection";
@@ -19,6 +21,8 @@ export default async function HomePage() {
       <TripleSection />
       <PopularSection />
       <TrendySection />
+      <PinkBlock />
+      <AutumnSection />
     </div>
   );
 }

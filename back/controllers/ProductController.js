@@ -19,6 +19,7 @@ const addProduct = async (req, res) => {
         smallCardImage,
         smallCardHoverImage,
         color,
+        isNewProduct,
         material,
         size,
         availability,
@@ -29,7 +30,7 @@ const addProduct = async (req, res) => {
         soldOut,
     } = req.body;
 
-    if (!title || !name || !collectionName || !newPrice || !smallCardImage || !smallCardHoverImage || !color || !size) {
+    if (!title || !name || !collectionName || !newPrice || !smallCardImage || !smallCardHoverImage || !color || !size || !isNewProduct) {
         return res.status(400).json({ msg: 'Please fill in all required fields' });
     }
 
@@ -51,6 +52,7 @@ const addProduct = async (req, res) => {
             reviews: reviews || 0,
             sold: sold || 0,
             soldOut: soldOut || false,
+            isNewProduct: isNewProduct || false,
         });
 
         await product.save();

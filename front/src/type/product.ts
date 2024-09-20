@@ -6,4 +6,6 @@ export interface Product {
     newPrice: string;
     oldPrice: string;
     isNewProduct: boolean;
+    discountPercent: number;
+    soldOut: boolean;
   }
