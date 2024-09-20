@@ -30,6 +30,7 @@ const productSchema = new mongoose.Schema({
     reviews: { type: Number, default: 0 },
     sold: { type: Number, default: 0 },
     soldOut: { type: Boolean, default: false },
+    isNewProduct: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Product', productSchema);
