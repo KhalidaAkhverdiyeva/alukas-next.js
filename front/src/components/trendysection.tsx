@@ -4,57 +4,30 @@ import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi2";
 
 const TrendySection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hovered, setHovered] = useState(false); // State to manage hover effect
+  const [hovered, setHovered] = useState(false);
 
   const swiperImages = [
     {
       image:
         "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Introducing The <br /> Lost Day Collection",
-      desc: "Ring, Occasion Pieces, Pandora & more collection",
+      hoverimage:
+        "https://demo-alukas.myshopify.com/cdn/shop/files/2.jpg?v=1709714257&width=360",
+      name: "ALUKAS",
+      title: "Blue Stripes & Stone Earrings",
+      newPrice: "$129.00",
+      oldPrice: "$170.00",
+      isNew: true,
     },
     {
       image:
         "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "A Minimalistic <br /> Design Masculine",
-      desc: "Awesome products for the dynamic urban lifestyle",
-    },
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "New S/S 2024 <br /> Amazing collections",
-      desc: "A symbol of love and a modern take on gold.",
-    },
-    // Additional cards...
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Card 4 Title",
-      desc: "Description for Card 4",
-    },
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Card 5 Title",
-      desc: "Description for Card 5",
-    },
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Card 6 Title",
-      desc: "Description for Card 6",
-    },
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Card 7 Title",
-      desc: "Description for Card 7",
-    },
-    {
-      image:
-        "https://demo-alukas.myshopify.com/cdn/shop/files/2_647d10da-007c-4d06-b375-56bf062e478e.jpg?v=1709715652&width=360",
-      title: "Card 8 Title",
-      desc: "Description for Card 8",
+      hoverimage:
+        "https://demo-alukas.myshopify.com/cdn/shop/files/2.jpg?v=1709714257&width=360",
+      name: "ALUKAS",
+      title: "Blue Stripes & Stone Earrings",
+      newPrice: "$129.00",
+      oldPrice: "$170.00",
+      isNew: false,
     },
   ];
 
@@ -85,23 +58,40 @@ const TrendySection = () => {
           Collect your loves with our newest arrivals.
         </h4>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden ">
           <div
-            className="flex transition-transform duration-500"
+            className="flex transition-transform duration-500 cursor-pointer overflow-hidden"
             style={{ transform: `translateX(-${currentIndex * 25}%)` }}
           >
             {swiperImages.map((item, index) => (
               <div className="min-w-[25%] p-4 text-center" key={index}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full rounded-lg"
-                />
-                <h3
-                  className="mt-2"
-                  dangerouslySetInnerHTML={{ __html: item.title }}
-                />
-                <p className="text-gray-500">{item.desc}</p>
+                <div className="relative group overflow-hidden">
+                  {item.isNew && (
+                    <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-1">
+                      New
+                    </div>
+                  )}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-[320px] h-[320px] transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <img
+                    src={item.hoverimage}
+                    alt={`${item.title} - Hover`}
+                    className="absolute inset-0 w-[320px] h-[320px] transition-opacity duration-700 opacity-0 group-hover:opacity-100 transform scale-105"
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center mt-[15px]">
+                  <p className="uppercase text-gray-500">{item.name}</p>
+                  <p className="text-[18px] my-[6px]">{item.title}</p>
+                  <div className="flex justify-center items-center gap-[5px]">
+                    <div className="text-[18px]">{item.newPrice}</div>
+                    <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
+                      {item.oldPrice}
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
