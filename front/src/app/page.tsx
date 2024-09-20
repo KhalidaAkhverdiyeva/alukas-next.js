@@ -1,5 +1,6 @@
 import PopularSection from "@/components/popularsection";
 import SwiperComponent from "@/components/swiperHero";
+import TrendySection from "@/components/trendysection";
 import TripleSection from "@/components/triplesection";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,6 +18,7 @@ export default async function HomePage() {
       <SwiperComponent />
       <TripleSection />
       <PopularSection />
+      <TrendySection />
     </div>
   );
 }
