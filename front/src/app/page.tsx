@@ -1,3 +1,4 @@
+import PopularSection from "@/components/popularsection";
 import SwiperComponent from "@/components/swiperHero";
 import TripleSection from "@/components/triplesection";
 import { cookies } from "next/headers";
@@ -15,6 +16,7 @@ export default async function HomePage() {
     <div className="flex flex-col justify-center items-center">
       <SwiperComponent />
       <TripleSection />
+      <PopularSection />
     </div>
   );
 }
