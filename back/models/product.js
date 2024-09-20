@@ -2,36 +2,36 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    description: { type: String, required: true },
-    collection: { type: mongoose.Schema.Types.ObjectId, ref: 'Collection', required: true },
-    price: { type: Number, required: true },
-    color: { type: String, required: true }, // Store color name or hex code
+    name: { type: String, required: true },
+    collectionName: { type: String, required: true },
+    newPrice: { type: Number, required: true },
+    oldPrice: { type: Number },
+    discountPercent: {
+        type: Number, default: function () {
+            if (this.oldPrice) {
+                return ((this.oldPrice - this.newPrice) / this.oldPrice) * 100;
+            }
+            return null;
+        },
+        required: false
+    },
+    smallCardImage: { type: String, required: true },
+    smallCardHoverImage: { type: String, required: true },
+    color: { type: String, required: true },
     material: { type: String },
-    size: { type: String },
-    availability: { type: Boolean, default: true },
-    images: [{ type: String }], // Array of images
+    size: { type: String, enum: ['S', 'M', 'L', 'XL', '32', '36', '44'] },
+    availability: {
+        type: String,
+        enum: ['in stock', 'out of stock'],
+        default: 'in stock',
+    },
+    tags: [{ type: String }],
+    detailImages: [{ type: String }],
     reviews: { type: Number, default: 0 },
     sold: { type: Number, default: 0 },
+    soldOut: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model('Product', productSchema);
 
 
-// {
-//     "title": "Product Name",
-//     "imageUrl": "https://example.com/static-image.jpg",
-//     "hoverImageUrl": "https://example.com/hover-image.jpg",
-//     "images": [
-//       "https://example.com/image1.jpg",
-//       "https://example.com/image2.jpg",
-//       "https://example.com/image3.jpg"
-//     ],
-//     "oldPrice": 100,
-//     "newPrice": 75,
-//     "isNew": true,
-//     "discountPercentage": 25,
-//     "reviews": 10,
-//     "soldInLast15Hours": 5,
-//     "longDescription": "This is a detailed product description.",
-//     "viewers": 29
-//   }

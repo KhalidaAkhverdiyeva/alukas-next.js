@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi2";
+import {
+  HiOutlineChevronRight,
+  HiOutlineChevronLeft,
+  HiOutlineArrowPath,
+} from "react-icons/hi2";
+import { PiHeartThin } from "react-icons/pi";
+import { IoSearchOutline } from "react-icons/io5";
 
 const TrendySection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,32 +70,65 @@ const TrendySection = () => {
             style={{ transform: `translateX(-${currentIndex * 25}%)` }}
           >
             {swiperImages.map((item, index) => (
-              <div className="min-w-[25%] p-4 text-center" key={index}>
+              <div className="min-w-[25%] p-4 text-center group" key={index}>
                 <div className="relative group overflow-hidden">
                   {item.isNew && (
                     <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-1">
                       New
                     </div>
                   )}
+
                   <img
                     src={item.image}
                     alt={item.title}
                     className="w-[320px] h-[320px] transition-transform duration-300 group-hover:scale-105"
                   />
+
                   <img
                     src={item.hoverimage}
                     alt={`${item.title} - Hover`}
-                    className="absolute inset-0 w-[320px] h-[320px] transition-opacity duration-700 opacity-0 group-hover:opacity-100 transform scale-105"
+                    className="absolute inset-0 w-[320px] h-[320px] transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"
                   />
+
+                  <div className="absolute top-2 right-[-50px] flex flex-col gap-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-[-60px] transition-all duration-1000">
+                    <div className="relative bg-white rounded-full p-2 cursor-pointer group">
+                      <PiHeartThin className="text-black" size={20} />
+                      <span className="absolute left-[-100px] top-1/2 transform -translate-y-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-0 hover:opacity-100 transition-all duration-300">
+                        Add to Wishlist
+                      </span>
+                    </div>
+
+                    <div className="relative bg-white rounded-full p-2 cursor-pointer group">
+                      <IoSearchOutline className="text-black" size={20} />
+                      <span className="absolute left-[-100px] top-1/2 transform -translate-y-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-0 hover:opacity-100 transition-all duration-300">
+                        Quick View
+                      </span>
+                    </div>
+
+                    <div className="relative bg-white rounded-full p-2 cursor-pointer group">
+                      <HiOutlineArrowPath className="text-black" size={20} />
+                      <span className="absolute left-[-100px] top-1/2 transform -translate-y-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-0 hover:opacity-100 transition-all duration-300">
+                        Compare
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center justify-center mt-[15px]">
+
+                <div className="flex flex-col items-center justify-center mt-[15px] relative">
                   <p className="uppercase text-gray-500">{item.name}</p>
                   <p className="text-[18px] my-[6px]">{item.title}</p>
-                  <div className="flex justify-center items-center gap-[5px]">
-                    <div className="text-[18px]">{item.newPrice}</div>
-                    <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
-                      {item.oldPrice}
+
+                  <div className="relative w-full">
+                    <div className="flex justify-center items-center gap-[5px] transition-transform duration-300 group-hover:translate-y-5 group-hover:opacity-0">
+                      <div className="text-[18px]">{item.newPrice}</div>
+                      <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
+                        {item.oldPrice}
+                      </div>
                     </div>
+
+                    <button className="absolute font-[500] uppercase w-[130px] flex justify-self-center  border-b-solid border-b-[2px] border-b-black  inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100  px-3 ">
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>

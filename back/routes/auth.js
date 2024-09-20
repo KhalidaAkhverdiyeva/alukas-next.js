@@ -8,7 +8,6 @@ const router = express.Router();
 router.post("/register", AuthRegister);
 router.post("/login", AuthLogin);
 
-
 //Forgot-Pass Route
 
 // router.post('/forgot-password', async (req, res) => {
