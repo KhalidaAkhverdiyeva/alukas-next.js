@@ -29,7 +29,7 @@ const TrendySection = () => {
   }, []);
 
   const nextSlide = () => {
-    if (currentIndex < products.length - 3) {
+    if (currentIndex < products.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -57,7 +57,7 @@ const TrendySection = () => {
 
         <div className="overflow-hidden ">
           <div
-            className="flex transition-transform duration-500 cursor-pointer overflow-hidden"
+            className="flex transition-transform duration-500 cursor-pointer"
             style={{ transform: `translateX(-${currentIndex * 25}%)` }}
           >
             {products.map((item, index) => (
@@ -126,9 +126,11 @@ const TrendySection = () => {
                       <div className="text-[18px] text-[#222]">
                         ${item.newPrice}
                       </div>
-                      <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
-                        ${item.oldPrice}
-                      </div>
+                      {item.oldPrice && (
+                        <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
+                          ${item.oldPrice}
+                        </div>
+                      )}
                     </div>
 
                     <button className="absolute font-[500] uppercase w-[130px] flex justify-self-center  border-b-solid border-b-[2px] border-b-black  inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100  px-3 ">
