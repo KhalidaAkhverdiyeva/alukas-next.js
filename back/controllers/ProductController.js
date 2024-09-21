@@ -2,13 +2,58 @@ const Product = require('../models/product');
 
 const getProduct = async (req, res) => {
     try {
-        const products = await Product.find();
-        res.status(200).json(products);
+        const { page = 1, limit = 12, search, collectionName, color, size, material, availability, isNewProduct, minPrice, maxPrice } = req.query;
+
+        const filter = {};
+        if (search) {
+            filter.title = { $regex: search, $options: 'i' };
+        }
+        if (collectionName) {
+            filter.collectionName = collectionName;
+        }
+        if (color) {
+            filter.color = color;
+        }
+        if (size) {
+            filter.size = size;
+        }
+        if (material) {
+            filter.material = material;
+        }
+        if (availability) {
+            filter.availability = availability;
+        }
+        if (isNewProduct) {
+            filter.isNewProduct = isNewProduct === 'true';
+        }
+        if (minPrice || maxPrice) {
+            filter.newPrice = {};
+            if (minPrice) {
+                filter.newPrice.$gte = Number(minPrice);
+            }
+            if (maxPrice) {
+                filter.newPrice.$lte = Number(maxPrice);
+            }
+        }
+
+        if (Object.keys(filter).length === 0) {
+            return res.status(400).json({ msg: 'At least one filter must be provided' });
+        }
+
+        const products = await Product.find(filter)
+            .skip((page - 1) * limit)
+            .limit(Number(limit));
+
+        const totalCount = await Product.countDocuments(filter);
+
+        res.status(200).json({ totalCount, page: Number(page), limit: Number(limit), products });
     } catch (err) {
         console.error('Error in getProduct route:', err);
         res.status(500).json({ msg: 'Server error', err });
     }
 };
+
+
 const addProduct = async (req, res) => {
     const {
         title,
