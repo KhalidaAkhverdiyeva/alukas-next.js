@@ -15,6 +15,7 @@ const FeauturedSection = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("Featured");
   const [transitioning, setTransitioning] = useState(false);
+  const itemsToShow = 4;
 
   const fetchProducts = async (category: string) => {
     try {
@@ -53,7 +54,7 @@ const FeauturedSection = () => {
   };
 
   const nextSlide = () => {
-    if (currentIndex < products.length - 1) {
+    if (currentIndex < products.length - itemsToShow) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -63,6 +64,7 @@ const FeauturedSection = () => {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
+
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
@@ -94,10 +96,13 @@ const FeauturedSection = () => {
         <div className="overflow-hidden ">
           <div
             className={`flex transition-all duration-500 cursor-pointer ${
-              transitioning
-                ? "transform translate-y-10 opacity-0"
-                : "transform translate-y-0 opacity-100"
+              transitioning ? "opacity-0" : "opacity-100"
             }`}
+            style={{
+              transform: `translateY(${
+                transitioning ? "30px" : "0"
+              }) translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+            }}
           >
             {products.map((item, index) => (
               <div className="min-w-[25%] p-4 text-center group" key={index}>
