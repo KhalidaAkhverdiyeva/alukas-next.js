@@ -36,9 +36,9 @@ const getProduct = async (req, res) => {
             }
         }
 
-        if (Object.keys(filter).length === 0) {
-            return res.status(400).json({ msg: 'At least one filter must be provided' });
-        }
+        // if (Object.keys(filter).length === 0) {
+        //     return res.status(400).json({ msg: 'At least one filter must be provided' });
+        // }
 
         const products = await Product.find(filter)
             .skip((page - 1) * limit)
@@ -75,7 +75,7 @@ const addProduct = async (req, res) => {
         soldOut,
     } = req.body;
 
-    if (!title || !name || !collectionName || !newPrice || !smallCardImage || !smallCardHoverImage || !color || !size || !isNewProduct) {
+    if (!title || !name || !collectionName || !newPrice || !smallCardImage || !smallCardHoverImage || !color || !size || typeof isNewProduct === 'undefined') {
         return res.status(400).json({ msg: 'Please fill in all required fields' });
     }
 

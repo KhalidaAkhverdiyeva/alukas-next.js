@@ -9,17 +9,16 @@ const productSchema = new mongoose.Schema({
     discountPercent: {
         type: Number, default: function () {
             if (this.oldPrice) {
-                return ((this.oldPrice - this.newPrice) / this.oldPrice) * 100;
+                return Math.round(((this.oldPrice - this.newPrice) / this.oldPrice) * 100);
             }
             return null;
-        },
-        required: false
+        }
     },
     smallCardImage: { type: String, required: true },
     smallCardHoverImage: { type: String, required: true },
     color: { type: String, required: true },
     material: { type: String },
-    size: { type: String, enum: ['S', 'M', 'L', 'XL', '32', '36', '44'] },
+    size: { type: String, enum: ['S', 'M', 'L', 'XL', '12', '14', '16'] },
     availability: {
         type: String,
         enum: ['in stock', 'out of stock'],

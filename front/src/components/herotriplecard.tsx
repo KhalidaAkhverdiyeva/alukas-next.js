@@ -1,12 +1,5 @@
+import { HeroCardProps } from "@/type/herocardprops";
 import React from "react";
-
-interface HeroCardProps {
-  imageUrl: string;
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  onButtonClick?: () => void;
-}
 
 const HeroCard: React.FC<HeroCardProps> = ({
   imageUrl,

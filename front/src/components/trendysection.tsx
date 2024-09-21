@@ -17,9 +17,11 @@ const TrendySection = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/product/all");
+        const response = await fetch(
+          "http://localhost:3000/api/product/all?collectionName=Royal%20Love"
+        );
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -64,17 +66,17 @@ const TrendySection = () => {
               <div className="min-w-[25%] p-4 text-center group" key={index}>
                 <div className="relative group overflow-hidden">
                   {item.soldOut && (
-                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#414040] text-white text-xs py-[2px] px-1">
+                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#414040] text-white text-xs py-[2px] px-3">
                       sold out
                     </div>
                   )}
                   {item.discountPercent && (
-                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#D73F0F] text-white text-xs py-[2px] px-1">
+                    <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#D73F0F] text-white text-xs py-[2px] px-3">
                       -{item.discountPercent}%
                     </div>
                   )}
                   {item.isNewProduct && (
-                    <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-1">
+                    <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-3">
                       New
                     </div>
                   )}
@@ -124,11 +126,11 @@ const TrendySection = () => {
                   <div className="relative w-full">
                     <div className="flex justify-center items-center gap-[5px] transition-transform duration-300 group-hover:translate-y-5 group-hover:opacity-0">
                       <div className="text-[18px] text-[#222]">
-                        ${item.newPrice}
+                        ${item.newPrice}.00
                       </div>
                       {item.oldPrice && (
                         <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
-                          ${item.oldPrice}
+                          ${item.oldPrice}.00
                         </div>
                       )}
                     </div>
