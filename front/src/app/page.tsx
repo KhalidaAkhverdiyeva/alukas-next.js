@@ -1,10 +1,12 @@
 import AutumnSection from "@/components/autumnsection";
 import CustomerReviewSection from "@/components/customerReview";
 import FeauturedSection from "@/components/featuredsection";
+import FollowUsSection from "@/components/followusSection";
 import JournalSection from "@/components/journalSection";
 import PinkBlock from "@/components/pinkblock";
 import PopularSection from "@/components/popularsection";
 import ShopNow from "@/components/shopNow";
+import Subscribe from "@/components/subscribeNewsletter";
 import SwiperComponent from "@/components/swiperHero";
 import TrendySection from "@/components/trendysection";
 import TripleSection from "@/components/triplesection";
@@ -31,6 +33,8 @@ export default async function HomePage() {
       <FeauturedSection />
       <CustomerReviewSection />
       <JournalSection />
+      <FollowUsSection />
+      <Subscribe />
     </div>
   );
 }
