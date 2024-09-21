@@ -14,29 +14,43 @@ const FeauturedSection = () => {
   const [hovered, setHovered] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("Featured");
+  const [transitioning, setTransitioning] = useState(false);
+
+  const fetchProducts = async (category: string) => {
+    try {
+      const categoryEndpointMap: { [key: string]: string } = {
+        Featured: "Royal%20Love",
+        "New Arrivals": "Middle%20of%20North",
+        "Best Sellers": "Morden",
+      };
+
+      const response = await fetch(
+        `http://localhost:3000/api/product/all?collectionName=${categoryEndpointMap[category]}`
+      );
+      const data = await response.json();
+      setProducts(data.products);
+      setCurrentIndex(0);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const categoryEndpointMap: { [key: string]: string } = {
-          Featured: "Royal%20Love",
-          "New Arrivals": "Middle%20of%20North",
-          "Best Sellers": "Morden",
-        };
-
-        const response = await fetch(
-          `http://localhost:3000/api/product/all?collectionName=${categoryEndpointMap[activeCategory]}`
-        );
-        const data = await response.json();
-        setProducts(data.products);
-        setCurrentIndex(0);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
+    const initialFetch = async () => {
+      setTransitioning(true);
+      await fetchProducts(activeCategory);
+      setTransitioning(false);
     };
 
-    fetchProducts();
-  }, [activeCategory]);
+    initialFetch();
+  }, []);
+
+  const handleCategoryChange = async (category: string) => {
+    setTransitioning(true);
+    await fetchProducts(category);
+    setActiveCategory(category);
+    setTransitioning(false);
+  };
 
   const nextSlide = () => {
     if (currentIndex < products.length - 1) {
@@ -65,12 +79,12 @@ const FeauturedSection = () => {
           {["New Arrivals", "Featured", "Best Sellers"].map((category) => (
             <div
               key={category}
-              className={`border-b-solid border-b-[2px] cursor-pointer ${
+              className={`cursor-pointer ${
                 activeCategory === category
-                  ? "border-b-black"
-                  : "border-transparent"
+                  ? "border-b-[2px] border-b-black text-black"
+                  : "border-b-transparent text-gray-500"
               }`}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleCategoryChange(category)}
             >
               {category}
             </div>
@@ -79,8 +93,11 @@ const FeauturedSection = () => {
 
         <div className="overflow-hidden ">
           <div
-            className="flex transition-transform duration-500 cursor-pointer"
-            style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+            className={`flex transition-all duration-500 cursor-pointer ${
+              transitioning
+                ? "transform translate-y-10 opacity-0"
+                : "transform translate-y-0 opacity-100"
+            }`}
           >
             {products.map((item, index) => (
               <div className="min-w-[25%] p-4 text-center group" key={index}>
