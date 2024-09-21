@@ -39,3 +39,9 @@ body {
 .slide-out {
   animation: slideOut 0.5s forwards;
 }
+
+.customer-review-section {
+  background-image: url("https://demo-alukas.myshopify.com/cdn/shop/files/alk_bg_testi.jpg?v=1711954099");
+  background-size: cover;
+  background-position: center;
+}

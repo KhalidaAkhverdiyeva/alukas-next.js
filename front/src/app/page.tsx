@@ -1,4 +1,5 @@
 import AutumnSection from "@/components/autumnsection";
+import CustomerReviewSection from "@/components/customerReview";
 import FeauturedSection from "@/components/featuredsection";
 import PinkBlock from "@/components/pinkblock";
 import PopularSection from "@/components/popularsection";
@@ -27,6 +28,7 @@ export default async function HomePage() {
       <AutumnSection />
       <ShopNow />
       <FeauturedSection />
+      <CustomerReviewSection />
     </div>
   );
 }
