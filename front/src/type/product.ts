@@ -1,11 +1,12 @@
 export interface Product {
-    smallCardImage: string;
-    smallCardHoverImage: string;
-    name: string;
-    title: string;
-    newPrice: string;
-    oldPrice: string;
-    isNewProduct: boolean;
-    discountPercent: number;
-    soldOut: boolean;
+  id: number;
+  title: string;
+  name: string;
+  smallCardImage: string;
+  smallCardHoverImage: string;
+  soldOut?: boolean;
+  discountPercent?: number;
+  isNewProduct?: boolean;
+  newPrice: number;
+  oldPrice?: number;
   }

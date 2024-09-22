@@ -53,6 +53,26 @@ const getProduct = async (req, res) => {
     }
 };
 
+const getProductByTitle = async (req, res) => {
+
+    try {
+        const { title } = req.params;
+
+        const product = await Product.findOne({ title });
+        console.log(product, 'ehehehhehe')
+
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        res.status(200).json({ product });
+    } catch (err) {
+        console.error('Error in getProductByTitle route:', err);
+        res.status(500).json({ msg: 'Server error', err });
+    }
+};
+
+
 
 const addProduct = async (req, res) => {
     const {
@@ -129,4 +149,4 @@ const deleteProduct = async (req, res) => {
 };
 
 
-module.exports = { getProduct, addProduct, deleteProduct };
+module.exports = { getProduct, addProduct, deleteProduct, getProductByTitle };
