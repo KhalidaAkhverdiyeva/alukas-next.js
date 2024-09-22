@@ -6,8 +6,8 @@ const SliderButton: FC<Products> = ({
   products,
   currentIndex,
   setCurrentIndex,
+  hovered,
 }) => {
-  const hovered = true;
   const nextSlide = () => {
     if (currentIndex < products.length - 1) {
       setCurrentIndex(currentIndex + 1);

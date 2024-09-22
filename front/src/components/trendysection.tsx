@@ -46,14 +46,14 @@ const TrendySection = () => {
             <ProductCard products={products} />
           </div>
         </div>
+        <SliderButton
+          products={products}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          hovered={hovered}
+        />
       </div>
 
-      <SliderButton
-        products={products}
-        currentIndex={currentIndex}
-        setCurrentIndex={setCurrentIndex}
-        hovered={hovered}
-      />
       <GotToSlide
         products={products}
         currentIndex={currentIndex}

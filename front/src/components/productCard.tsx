@@ -14,21 +14,23 @@ const ProductCard: FC<ProductCardProps> = ({ products }) => {
         <div className="min-w-[25%] p-4 text-center group over" key={index}>
           <Link href={`/${item.title}`}>
             <div className="relative group overflow-hidden">
-              {item.soldOut && (
-                <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#414040] text-white text-xs py-[2px] px-3">
-                  Sold Out
-                </div>
-              )}
-              {item.discountPercent && (
-                <div className="absolute top-[40px] z-20 font-[600] uppercase left-[15px] bg-[#D73F0F] text-white text-xs py-[2px] px-3">
-                  -{item.discountPercent}%
-                </div>
-              )}
-              {item.isNewProduct && (
-                <div className="absolute top-[15px] z-20 font-[600] uppercase left-[15px] bg-[#156C8C] text-white text-xs py-[2px] px-3">
-                  New
-                </div>
-              )}
+              <div className="absolute top-[15px] left-[15px] z-20 flex flex-col space-y-2">
+                {item.soldOut && (
+                  <div className="font-[600] uppercase bg-[#414040] text-white text-xs py-[2px] px-[10px]">
+                    Sold Out
+                  </div>
+                )}
+                {item.discountPercent && (
+                  <div className="font-[600] uppercase bg-[#D73F0F] text-white text-xs py-[2px] px-[10px]">
+                    -{item.discountPercent}%
+                  </div>
+                )}
+                {item.isNewProduct && (
+                  <div className="font-[600] uppercase bg-[#156C8C] text-white text-xs py-[2px] px-[10px]">
+                    New
+                  </div>
+                )}
+              </div>
               <img
                 src={item.smallCardImage}
                 alt={item.title}
