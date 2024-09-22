@@ -190,12 +190,12 @@ const FeauturedSection = () => {
         <button
           onClick={prevSlide}
           disabled={currentIndex === 0}
-          className={`absolute left-[25px] top-[350px] cursor-pointer transform -translate-y-1/2 transition-opacity duration-300 rounded-full 
+          className={`absolute group left-[25px] top-[350px] cursor-pointer transform -translate-y-1/2 transition-all duration-300 rounded-full 
   ${hovered ? "opacity-100" : "opacity-0"} 
   ${
     currentIndex === 0
       ? "pointer-events-none bg-gray-200"
-      : "bg-white transition-colors duration-300 hover:bg-black"
+      : "bg-white hover:bg-black transition-colors duration-300"
   } 
   p-2`}
         >
@@ -203,7 +203,7 @@ const FeauturedSection = () => {
             className={`transition-colors duration-300 ${
               currentIndex === 0
                 ? "text-gray-500"
-                : "text-black hover:text-white"
+                : "text-black group-hover:text-white"
             }`}
             size={24}
           />
@@ -211,12 +211,12 @@ const FeauturedSection = () => {
         <button
           onClick={nextSlide}
           disabled={currentIndex >= products.length - 4}
-          className={`absolute right-[25px] top-[350px] cursor-pointer transform -translate-y-1/2 transition-opacity duration-300 rounded-full 
+          className={`absolute group right-[25px] top-[350px] cursor-pointer transform -translate-y-1/2 transition-all duration-300 rounded-full 
   ${hovered ? "opacity-100" : "opacity-0"} 
   ${
     currentIndex >= products.length - 4
       ? "pointer-events-none bg-gray-200"
-      : "bg-white transition-colors duration-300 hover:bg-black"
+      : "bg-white hover:bg-black transition-colors duration-300"
   } 
   p-2`}
         >
@@ -224,7 +224,7 @@ const FeauturedSection = () => {
             className={`transition-colors duration-300 ${
               currentIndex >= products.length - 4
                 ? "text-gray-500"
-                : "text-black hover:text-white"
+                : "text-black group-hover:text-white"
             }`}
             size={24}
           />
