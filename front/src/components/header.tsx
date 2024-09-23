@@ -125,11 +125,12 @@ const Header = () => {
               <BsChevronDown className="text-[#969595] w-[13px] h-[13px]" />
             </li>
           </Link>
-
-          <li className="flex gap-[5px] items-center cursor-pointer">
-            <span className="hover-effect">SHOP</span>
-            <BsChevronDown className="text-[#969595] w-[13px] h-[13px]" />
-          </li>
+          <Link href="shop">
+            <li className="flex gap-[5px] items-center cursor-pointer  py-[18px]">
+              <span className="hover-effect">SHOP</span>
+              <BsChevronDown className="text-[#969595] w-[13px] h-[13px]" />
+            </li>
+          </Link>
           <li className="flex gap-[5px] items-center cursor-pointer">
             <span className="hover-effect">PRODUCT</span>
             <BsChevronDown className="text-[#969595] w-[13px] h-[13px]" />

@@ -10,27 +10,38 @@ const CommonBreadcrumbs = () => {
   const pathname = usePathname();
   const segments = pathname.split("/").filter((item) => item !== "");
 
-  const home = { icon: "pi pi-home", url: "/" };
+  const home: MenuItem = {
+    label: "Home",
+    url: "/",
+    template: () => (
+      <Link href="/" className="breadcrumb-home">
+        <span className="mr-2 text-gray-500 font-[500]">Home</span>
+      </Link>
+    ),
+  };
 
   const items: MenuItem[] = segments.map((item, index) => {
-    const decodedItem = decodeURIComponent(item); // Decode the URL-encoded segment
+    const decodedItem = decodeURIComponent(item);
+
     return {
-      disabled: index === segments.length - 1, // Disable the last item
+      disabled: index === segments.length - 1,
+      label: capitalize(decodedItem),
       template: () => (
         <Link
           href={`/${segments.slice(0, index + 1).join("/")}`}
           aria-label={`Go to ${capitalize(decodedItem)}`}
         >
-          {capitalize(decodedItem)} {/* Display the decoded item */}
+          <span className="ml-2 font-[500] text-[#222]">
+            {capitalize(decodedItem)}
+          </span>
         </Link>
       ),
     };
   });
 
-  // Add home link to items
-  const model = [{ ...home }, ...items];
+  const model: MenuItem[] = [home, ...items];
 
-  return <BreadCrumb model={model} />;
+  return <BreadCrumb model={model} className="breadcrumb-spacing" />;
 };
 
 export default CommonBreadcrumbs;
