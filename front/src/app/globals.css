@@ -45,3 +45,7 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

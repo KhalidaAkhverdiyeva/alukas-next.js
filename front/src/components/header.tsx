@@ -13,16 +13,19 @@ import DropdownMenu from "./dropdown";
 import Link from "next/link";
 
 const Header = () => {
-  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [isSticky, setIsSticky] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+
   const handleScroll = () => {
     const scrollTop = window.scrollY;
-    if (scrollTop > lastScrollTop) {
-      setIsHeaderVisible(false);
+
+    if (scrollTop > 200) {
+      setIsSticky(true);
     } else {
-      setIsHeaderVisible(true);
+      setIsSticky(false);
     }
-    setLastScrollTop(scrollTop <= 100 ? 0 : scrollTop);
+
+    setIsHeaderVisible(scrollTop <= 200 || isSticky);
   };
 
   useEffect(() => {
@@ -30,13 +33,13 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollTop]);
+  }, [isSticky]);
 
   return (
     <div
-      className={`w-full sticky top-0 z-[700] items-center shadow-custom transition-transform duration-300 ${
-        isHeaderVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className={`w-full z-50 transition-all duration-300 ease-in-out ${
+        isSticky ? "sticky top-0 bg-white shadow-lg" : "relative"
+      } ${isHeaderVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="text-white bg-[#222222] flex justify-center ">
         <div className=" w-[1360px] flex justify-between py-[8px] ">
@@ -51,7 +54,6 @@ const Header = () => {
             <div className="flex gap-[6px]">
               <div>Summer Sale 15% off!</div>
               <a href="" className="underline">
-                {" "}
                 Shop Now!
               </a>
             </div>
