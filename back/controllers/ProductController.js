@@ -59,7 +59,6 @@ const getProductByTitle = async (req, res) => {
         const { title } = req.params;
 
         const product = await Product.findOne({ title });
-        console.log(product, 'ehehehhehe')
 
         if (!product) {
             return res.status(404).json({ msg: 'Product not found' });

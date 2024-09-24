@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useEffect, useState } from "react";
 import { Product } from "../type/product";
@@ -11,7 +12,6 @@ const FeauturedSection = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("New Arrivals");
   const [transitioning, setTransitioning] = useState(false);
-  const itemsToShow = 4;
 
   const fetchProducts = async (category: string) => {
     try {
@@ -73,18 +73,21 @@ const FeauturedSection = () => {
           ))}
         </div>
 
-        <div className="overflow-hidden ">
+        <div className="overflow-hidden w-full">
           <div
-            className={`flex transition-all duration-500 cursor-pointer ${
-              transitioning ? "opacity-0" : "opacity-100"
-            }`}
+            className="flex transition-transform duration-500"
             style={{
-              transform: `translateY(${
-                transitioning ? "30px" : "0"
-              }) translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+              transform: `translateX(-${(currentIndex * 100) / 4}%)`,
             }}
           >
-            <ProductCard products={products} />
+            {products.map((item) => (
+              <div
+                key={item.id}
+                className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
+              >
+                <ProductCard products={[item]} />
+              </div>
+            ))}
           </div>
         </div>
 

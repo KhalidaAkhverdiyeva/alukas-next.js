@@ -9,6 +9,7 @@ const TrendySection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const itemsPerRow = 4;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -38,12 +39,21 @@ const TrendySection = () => {
           Collect your loves with our newest arrivals.
         </h4>
 
-        <div className="overflow-hidden ">
+        <div className="overflow-hidden w-full">
           <div
-            className="flex transition-transform duration-500 cursor-pointer"
-            style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+            className="flex transition-transform duration-500"
+            style={{
+              transform: `translateX(-${(currentIndex * 100) / itemsPerRow}%)`,
+            }}
           >
-            <ProductCard products={products} />
+            {products.map((item) => (
+              <div
+                key={item.id}
+                className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
+              >
+                <ProductCard products={[item]} />
+              </div>
+            ))}
           </div>
         </div>
         <SliderButton

@@ -375,12 +375,21 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             Here’s some of our most similar products people are buying. Click to
             discover trending style.
           </p>
-          <div className="overflow-hidden py-[20px] ">
+          <div className="overflow-hidden w-full">
             <div
-              className="flex transition-transform duration-500 cursor-pointer"
-              style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+              className="flex transition-transform duration-500"
+              style={{
+                transform: `translateX(-${(currentIndex * 100) / 4}%)`,
+              }}
             >
-              <ProductCard products={products} />
+              {products.map((item) => (
+                <div
+                  key={item.id}
+                  className="w-[25%] flex-shrink-0 flex-grow-0 p-2 py-[40px] overflow-hidden"
+                >
+                  <ProductCard products={[item]} />
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -10,8 +10,8 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ products }) => {
   return (
     <>
-      {products.map((item, index) => (
-        <div className="min-w-[25%] p-4 text-center group over" key={index}>
+      {products.map((item) => (
+        <div className=" text-center group over" key={item.id}>
           <Link href={`/${item.title}`}>
             <div className="relative group overflow-hidden">
               <div className="absolute top-[15px] left-[15px] z-20 flex flex-col space-y-2">
@@ -34,12 +34,12 @@ const ProductCard: FC<ProductCardProps> = ({ products }) => {
               <img
                 src={item.smallCardImage}
                 alt={item.title}
-                className="w-[320px] h-[320px] transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full aspect-square a object-cover h-full transition-transform duration-300 group-hover:scale-105"
               />
               <img
                 src={item.smallCardHoverImage}
                 alt={`${item.title} - Hover`}
-                className="absolute inset-0 w-[320px] h-[320px] transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"
+                className="absolute inset-0 w-full aspect-square object-cover h-full transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"
               />
               <OverImageNav />
             </div>
