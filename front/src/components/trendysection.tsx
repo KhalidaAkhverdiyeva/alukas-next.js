@@ -19,6 +19,7 @@ const TrendySection = () => {
         );
         const data = await response.json();
         setProducts(data.products);
+        console.log(data.products, "productsss");
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -51,7 +52,7 @@ const TrendySection = () => {
                 key={item.id}
                 className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
               >
-                <ProductCard products={[item]} />
+                <ProductCard product={item} />
               </div>
             ))}
           </div>

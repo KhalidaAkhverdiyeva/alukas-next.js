@@ -75,9 +75,13 @@ const FeauturedSection = () => {
 
         <div className="overflow-hidden w-full">
           <div
-            className="flex transition-transform duration-500"
+            className={`flex transition-all duration-500 ${
+              transitioning ? "opacity-0" : "opacity-100"
+            }`}
             style={{
-              transform: `translateX(-${(currentIndex * 100) / 4}%)`,
+              transform: `translateY(${
+                transitioning ? "30px" : "0"
+              }) translateX(-${(currentIndex * 100) / 4}%)`,
             }}
           >
             {products.map((item) => (
@@ -85,7 +89,7 @@ const FeauturedSection = () => {
                 key={item.id}
                 className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
               >
-                <ProductCard products={[item]} />
+                <ProductCard product={item} />
               </div>
             ))}
           </div>

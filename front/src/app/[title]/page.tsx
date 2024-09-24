@@ -387,7 +387,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                   key={item.id}
                   className="w-[25%] flex-shrink-0 flex-grow-0 p-2 py-[40px] overflow-hidden"
                 >
-                  <ProductCard products={[item]} />
+                  <ProductCard product={item} />
                 </div>
               ))}
             </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import CircleCard from "@/components/circlecard";
 import ProductCard from "@/components/productCard";
@@ -10,6 +11,7 @@ import { CiBoxList, CiGrid41 } from "react-icons/ci";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { RiFilterLine } from "react-icons/ri";
 import { TfiLayoutGrid4 } from "react-icons/tfi";
+import Sidebar from "../../components/filterSideBar";
 
 const ShopPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -18,6 +20,8 @@ const ShopPage = () => {
   const [cardsPerRow, setCardsPerRow] = useState<number>(3);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalProducts, setTotalProducts] = useState<number>(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(true);
   const productsPerPage = 15;
 
   const getGridClasses = () => {
@@ -72,11 +76,17 @@ const ShopPage = () => {
     setCurrentPage(page);
   };
 
+  const toggleFilterSidebar = () => {
+    setIsFilterOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   const totalPages = Math.ceil(totalProducts / productsPerPage);
   const breadcrumbModel = [{ label: "Home", url: "/" }, { label: "Shops" }];
 
   return (
     <div>
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       <div className="relative">
         <img
           src="https://demo-alukas.myshopify.com/cdn/shop/files/alk_bg_collections.jpg?v=1711247313"
@@ -119,7 +129,10 @@ const ShopPage = () => {
           <div className="flex justify-between w-full ">
             <div className="py-[50px] flex justify-between w-full">
               <div className="flex gap-[20px] items-center">
-                <div className="text-white bg-black flex items-center text-[12px] font-[500] gap-[5px] py-[7px] px-[18px]">
+                <div
+                  onClick={toggleFilterSidebar}
+                  className="text-white cursor-pointer bg-black flex items-center text-[12px] font-[500] gap-[5px] py-[7px] px-[18px]"
+                >
                   <RiFilterLine className="text-[20px]" />
                   FILTER
                 </div>

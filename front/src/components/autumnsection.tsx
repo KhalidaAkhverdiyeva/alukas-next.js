@@ -50,7 +50,7 @@ const AutumnSection = () => {
                 key={item.id}
                 className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
               >
-                <ProductCard products={[item]} />
+                <ProductCard product={item} />
               </div>
             ))}
           </div>
