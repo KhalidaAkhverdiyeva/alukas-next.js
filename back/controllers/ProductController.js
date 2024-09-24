@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 const getProduct = async (req, res) => {
     try {
-        const { page = 1, limit = 12, search, collectionName, color, size, material, availability, isNewProduct, minPrice, maxPrice } = req.query;
+        const { page = 1, limit = 15, search, collectionName, color, size, material, availability, isNewProduct, minPrice, maxPrice } = req.query;
 
         const filter = {};
         if (search) {
@@ -35,10 +35,6 @@ const getProduct = async (req, res) => {
                 filter.newPrice.$lte = Number(maxPrice);
             }
         }
-
-        // if (Object.keys(filter).length === 0) {
-        //     return res.status(400).json({ msg: 'At least one filter must be provided' });
-        // }
 
         const products = await Product.find(filter)
             .skip((page - 1) * limit)

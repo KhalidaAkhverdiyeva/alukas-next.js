@@ -1,6 +1,7 @@
 "use client";
 import CircleCard from "@/components/circlecard";
 import ProductCard from "@/components/productCard";
+import SkeletonLoader from "@/components/shopPageSkeleton";
 import { Product } from "@/type/product";
 import { BreadCrumb } from "primereact/breadcrumb";
 import React, { useEffect, useState } from "react";
@@ -15,6 +16,9 @@ const ShopPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [cardsPerRow, setCardsPerRow] = useState<number>(3);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalProducts, setTotalProducts] = useState<number>(0);
+  const productsPerPage = 15;
 
   const getGridClasses = () => {
     switch (cardsPerRow) {
@@ -29,36 +33,48 @@ const ShopPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/product/all");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-
-        if (data.products) {
-          setProducts(data.products);
-        } else {
-          throw new Error("No products found");
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error");
-      } finally {
-        setLoading(false);
+  const fetchProducts = async (page: number) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/product/all?page=${page}&limit=${productsPerPage}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
+      const data = await response.json();
+      setProducts(data.products);
+      setTotalProducts(data.totalCount);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [currentPage]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <SkeletonLoader />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
+
   const handleCardsPerRowChange = (count: number) => {
     setCardsPerRow(count);
   };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
   const breadcrumbModel = [{ label: "Home", url: "/" }, { label: "Shops" }];
+
   return (
     <div>
       <div className="relative">
@@ -108,7 +124,7 @@ const ShopPage = () => {
                   FILTER
                 </div>
                 <div className="text-[18px] text-[#555]">
-                  There are <span>{49}</span> results in total
+                  There are <span>{totalProducts}</span> results in total
                 </div>
               </div>
               <div className="flex items-center gap-[20px] text-[18px]">
@@ -133,9 +149,24 @@ const ShopPage = () => {
               </div>
             </div>
           </div>
-          <div className={`grid ${getGridClasses()} gap-4 w-full`}>
+          <div className={`grid ${getGridClasses()} gap-[20px] w-full`}>
             {products.map((product) => (
-              <ProductCard key={product.id} products={products} />
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          <div className="flex justify-center py-[50px]">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={`mx-2 px-4 py-2 rounded ${
+                  currentPage === index + 1
+                    ? "border border-black text-black"
+                    : " text-black"
+                }`}
+              >
+                {index + 1}
+              </button>
             ))}
           </div>
         </div>
