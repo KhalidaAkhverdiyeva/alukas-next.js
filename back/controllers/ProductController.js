@@ -2,9 +2,22 @@ const Product = require('../models/product');
 
 const getProduct = async (req, res) => {
     try {
-        const { page = 1, limit = 15, search, collectionName, color, size, material, availability, isNewProduct, minPrice, maxPrice } = req.query;
+        const {
+            page = 1,
+            limit = 15,
+            search,
+            collectionName,
+            color,
+            size,
+            material,
+            availability,
+            isNewProduct,
+            minPrice,
+            maxPrice
+        } = req.query;
 
         const filter = {};
+
         if (search) {
             filter.title = { $regex: search, $options: 'i' };
         }
@@ -36,11 +49,16 @@ const getProduct = async (req, res) => {
             }
         }
 
+        console.log("Filter:", filter);
+
+
         const products = await Product.find(filter)
             .skip((page - 1) * limit)
             .limit(Number(limit));
 
+
         const totalCount = await Product.countDocuments(filter);
+
 
         res.status(200).json({ totalCount, page: Number(page), limit: Number(limit), products });
     } catch (err) {
@@ -143,5 +161,62 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+const editProduct = async (req, res) => {
+    const { id } = req.params;
 
-module.exports = { getProduct, addProduct, deleteProduct, getProductByTitle };
+    const {
+        title,
+        name,
+        collectionName,
+        newPrice,
+        oldPrice,
+        smallCardImage,
+        smallCardHoverImage,
+        color,
+        isNewProduct,
+        material,
+        size,
+        availability,
+        tags,
+        detailImages,
+        reviews,
+        sold,
+        soldOut,
+    } = req.body;
+
+    try {
+
+        const product = await Product.findById(id);
+
+
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        if (title) product.title = title;
+        if (name) product.name = name;
+        if (collectionName) product.collectionName = collectionName;
+        if (newPrice !== undefined) product.newPrice = newPrice;
+        if (oldPrice !== undefined) product.oldPrice = oldPrice || null;
+        if (smallCardImage) product.smallCardImage = smallCardImage;
+        if (smallCardHoverImage) product.smallCardHoverImage = smallCardHoverImage;
+        if (color) product.color = color;
+        if (material) product.material = material || null;
+        if (size) product.size = size;
+        if (availability) product.availability = availability;
+        if (tags) product.tags = tags || [];
+        if (detailImages) product.detailImages = detailImages || [];
+        if (reviews !== undefined) product.reviews = reviews;
+        if (sold !== undefined) product.sold = sold;
+        if (soldOut !== undefined) product.soldOut = soldOut;
+        if (isNewProduct !== undefined) product.isNewProduct = isNewProduct === 'true';
+
+        await product.save();
+        res.status(200).json({ msg: 'Product updated successfully', product });
+    } catch (err) {
+        console.error('Error in editProduct route:', err);
+        res.status(500).json({ msg: 'Server error', err });
+    }
+};
+
+module.exports = { getProduct, addProduct, deleteProduct, getProductByTitle, editProduct };

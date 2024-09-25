@@ -8,7 +8,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import React, { useEffect, useState } from "react";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { CiBoxList, CiGrid41 } from "react-icons/ci";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { IoChevronDownOutline, IoCloseOutline } from "react-icons/io5";
 import { RiFilterLine } from "react-icons/ri";
 import { TfiLayoutGrid4 } from "react-icons/tfi";
 import Sidebar from "../../components/filterSideBar";
@@ -23,6 +23,18 @@ const ShopPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(true);
   const productsPerPage = 15;
+
+  const [price, setPrice] = useState<[number, number]>([0, 1500]);
+  const [collectionName, setCollectionName] = useState<string>("");
+  const [color, setColor] = useState<string>("");
+  const [size, setSize] = useState<string>("");
+  const [material, setMaterial] = useState<string>("");
+  const [availability, setAvailability] = useState<string>("");
+  const [isNewProduct, setIsNewProduct] = useState<boolean>(false);
+
+  const [activeFilters, setActiveFilters] = useState<{
+    [key: string]: string | boolean;
+  }>({});
 
   const getGridClasses = () => {
     switch (cardsPerRow) {
@@ -40,13 +52,29 @@ const ShopPage = () => {
   const fetchProducts = async (page: number) => {
     setLoading(true);
     try {
+      const queryParams = new URLSearchParams({
+        page: String(page),
+        limit: String(productsPerPage),
+        collectionName: collectionName || "",
+        color: color || "",
+        size: size || "",
+        material: material || "",
+        availability: availability || "",
+        minPrice: String(price[0]),
+        maxPrice: String(price[1]),
+      }).toString();
+
       const response = await fetch(
-        `http://localhost:3000/api/product/all?page=${page}&limit=${productsPerPage}`
+        `http://localhost:3000/api/product/all?${queryParams}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log("Fetching products with:", {
+        minPrice: price[0],
+        maxPrice: price[1],
+      });
       setProducts(data.products);
       setTotalProducts(data.totalCount);
     } catch (err) {
@@ -55,10 +83,17 @@ const ShopPage = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [currentPage]);
+  }, [
+    currentPage,
+    collectionName,
+    color,
+    size,
+    material,
+    availability,
+    isNewProduct,
+  ]);
 
   if (loading)
     return (
@@ -68,6 +103,80 @@ const ShopPage = () => {
     );
   if (error) return <div>Error: {error}</div>;
 
+  const handleFilterChange = (filterType: string, value: string) => {
+    switch (filterType) {
+      case "collectionName":
+        setCollectionName(value);
+        setActiveFilters((prev) => ({ ...prev, collectionName: value }));
+        break;
+      case "color":
+        setColor(value);
+        setActiveFilters((prev) => ({ ...prev, color: value }));
+        break;
+      case "size":
+        setSize(value);
+        setActiveFilters((prev) => ({ ...prev, size: value }));
+        break;
+      case "material":
+        setMaterial(value);
+        setActiveFilters((prev) => ({ ...prev, material: value }));
+        break;
+      case "availability":
+        setAvailability(value);
+        setActiveFilters((prev) => ({ ...prev, availability: value }));
+        break;
+      case "isNewProduct":
+        setIsNewProduct(value === "true");
+        setActiveFilters((prev) => ({
+          ...prev,
+          isNewProduct: value === "true",
+        }));
+        break;
+      default:
+        break;
+    }
+    setCurrentPage(1);
+  };
+
+  const removeFilter = (filterType: string) => {
+    setActiveFilters((prev) => {
+      const newFilters = { ...prev };
+      delete newFilters[filterType];
+      return newFilters;
+    });
+
+    switch (filterType) {
+      case "collectionName":
+        setCollectionName("");
+        break;
+      case "color":
+        setColor("");
+        break;
+      case "size":
+        setSize("");
+        break;
+      case "material":
+        setMaterial("");
+        break;
+      case "availability":
+        setAvailability("");
+        break;
+      case "isNewProduct":
+        setIsNewProduct(false);
+        break;
+      default:
+        break;
+    }
+    setCurrentPage(1);
+  };
+
+  const handlePriceChange = (values: [number, number]) => {
+    setPrice(values);
+    // Fetch products based on the new price range
+    fetchProducts(currentPage); // Pass the current page instead
+    // Reset to the first page if you're paginating
+    setCurrentPage(1); // Uncomment this line if you want to reset to the first page
+  };
   const handleCardsPerRowChange = (count: number) => {
     setCardsPerRow(count);
   };
@@ -82,11 +191,18 @@ const ShopPage = () => {
   };
 
   const totalPages = Math.ceil(totalProducts / productsPerPage);
+
   const breadcrumbModel = [{ label: "Home", url: "/" }, { label: "Shops" }];
 
   return (
     <div>
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        onFilterChange={handleFilterChange}
+        price={price}
+        onPriceChange={handlePriceChange}
+      />
       <div className="relative">
         <img
           src="https://demo-alukas.myshopify.com/cdn/shop/files/alk_bg_collections.jpg?v=1711247313"
@@ -146,22 +262,49 @@ const ShopPage = () => {
                   Alphabetically: A-Z <IoChevronDownOutline />
                 </div>
                 <div className="flex gap-[10px] items-center">
-                  <div onClick={() => handleCardsPerRowChange(2)}>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleCardsPerRowChange(2)}
+                  >
                     <CiGrid41 />
                   </div>
-                  <div onClick={() => handleCardsPerRowChange(3)}>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleCardsPerRowChange(3)}
+                  >
                     <BsGrid3X3Gap />
                   </div>
-                  <div onClick={() => handleCardsPerRowChange(4)}>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleCardsPerRowChange(4)}
+                  >
                     <TfiLayoutGrid4 />
                   </div>
-                  <div>
+                  {/* <div>
                     <CiBoxList className="text-[22px]" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="flex flex-wrap gap-2  pb-[20px] items-start self-start">
+            {Object.entries(activeFilters).map(([key, value]) => (
+              <div
+                key={key}
+                className="bg-[#F5F5F5] py-2 px-[14px] rounded flex items-center"
+              >
+                <span className="mr-[5px] text-[14px]">{String(value)}</span>
+                <button
+                  onClick={() => removeFilter(key)}
+                  className="text-gray-700"
+                >
+                  <IoCloseOutline className="text-[20px]" />
+                </button>
+              </div>
+            ))}
+          </div>
+
           <div className={`grid ${getGridClasses()} gap-[20px] w-full`}>
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />

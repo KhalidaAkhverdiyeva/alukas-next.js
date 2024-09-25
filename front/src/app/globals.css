@@ -91,3 +91,32 @@ input[type="checkbox"]:checked::after {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+
+.sidebar::-webkit-scrollbar {
+  width: 2px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color (light gray) */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #d3d3d3; /* Thumb color (light gray) */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #a9a9a9; /* Thumb color on hover */
+}
+
+/* Hide the scrollbar arrows (works in WebKit browsers) */
+.sidebar::-webkit-scrollbar-button {
+  display: none; /* Hide the top and bottom arrows */
+}
+
+/* Custom Scrollbar for Firefox */
+.sidebar {
+  scrollbar-width: thin; /* Options: auto, thin */
+  scrollbar-color: #d3d3d3 #f1f1f1; /* Thumb color (light gray), Track color (light gray) */
+}

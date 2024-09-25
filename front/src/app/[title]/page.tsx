@@ -86,7 +86,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
       <div className="w-[1360px] justify-center flex flex-col items-between pb-[100px]">
         <div className="flex justify-between w-full mb-[20px]">
           <CommonBreadcrumbs />
-          <div>nese bir icon</div>
+          {/* <div>nese bir icon</div> */}
         </div>
 
         <div className="flex gap-[80px]">
