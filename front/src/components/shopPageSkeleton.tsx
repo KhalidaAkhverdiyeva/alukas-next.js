@@ -13,15 +13,6 @@ const SkeletonLoader = () => {
           </div>
         ))}
       </div>
-
-      <div className="flex justify-between w-full mb-4">
-        <div className="animate-pulse w-1/3 h-10 bg-gray-200 rounded-md"></div>
-        <div className="animate-pulse w-1/3 h-10 bg-gray-200 rounded-md"></div>
-      </div>
-
-      <div className="flex justify-center mb-4">
-        <div className="animate-pulse w-1/3 h-10 bg-gray-200 rounded-md"></div>
-      </div>
     </div>
   );
 };

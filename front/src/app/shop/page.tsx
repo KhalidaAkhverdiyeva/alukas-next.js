@@ -136,6 +136,7 @@ const ShopPage = () => {
         break;
     }
     setCurrentPage(1);
+    setIsSidebarOpen(false);
   };
 
   const removeFilter = (filterType: string) => {

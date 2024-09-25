@@ -5,11 +5,13 @@ import { TbEyeClosed } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
 
 import React from "react";
+import { useUser } from "@/Context/userContext";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { setUserId } = useUser();
   const router = useRouter();
 
   const togglePasswordVisibility = () => {
@@ -30,7 +32,10 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
-        console.log("Login successful");
+        const data = await response.json();
+        const { userId } = data;
+        setUserId(userId);
+
         router.push("/");
       } else {
         console.error("Login failed:", response.statusText);

@@ -19,7 +19,6 @@ const TrendySection = () => {
         );
         const data = await response.json();
         setProducts(data.products);
-        console.log(data.products, "productsss");
       } catch (error) {
         console.error("Error fetching products:", error);
       }

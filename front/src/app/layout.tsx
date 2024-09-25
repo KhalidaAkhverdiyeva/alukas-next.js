@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
 import ConditionalLayout from "../components/conditionallayout";
+import { UserProvider } from "../Context/userContext";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jost.variable} ${jost.variable} antialiased`}>
-        <ConditionalLayout>{children}</ConditionalLayout>
+        <UserProvider>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </UserProvider>
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ const AuthRegister = async (req, res) => {
             maxAge: 3600000,
         });
 
-        res.status(201).json({ msg: 'User registered successfully', token });
+        res.status(201).json({ msg: 'User registered successfully', token, userId: user.id });
     } catch (err) {
         console.error('Error in register route:', err);
         res.status(500).json({ msg: 'Server error', err });
@@ -59,12 +59,12 @@ const AuthLogin = async (req, res) => {
 
         const token = generateJWT(user.id);
         console.log('Login successful, token generated');
-        res.cookie('auth_token', token, {
+        res.cookie('auth_token', { token: token, userId: user.id }, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             maxAge: 3600000,
         });
-        res.status(200).json({ msg: 'Login successful', token });
+        res.status(200).json({ msg: 'Login successful', token, userId: user.id });
     } catch (err) {
         console.error('Error in login route:', err);
         res.status(500).json({ msg: 'Server error', err });
