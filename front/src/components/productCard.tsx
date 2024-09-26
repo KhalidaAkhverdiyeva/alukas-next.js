@@ -1,5 +1,6 @@
+"use client";
 import { Product } from "@/type/product";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import OverImageNav from "./overimageNav";
 import Link from "next/link";
 import { useUser } from "@/Context/userContext";
@@ -9,8 +10,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
-  const { userId } = useUser();
-  const productId = product.id;
+  const productId = product._id;
+
   return (
     <div className="text-center group over" key={product.id}>
       <Link href={`/${product.title}`}>
@@ -44,7 +45,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
               className="absolute inset-0 aspect-square w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"
             />
           </div>
-          <OverImageNav userId={userId} productId={productId} />
+          <OverImageNav productId={productId} />
         </div>
       </Link>
       <div className="flex flex-col items-center justify-center mt-[15px] relative">
