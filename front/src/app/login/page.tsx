@@ -35,6 +35,7 @@ export default function LoginPage() {
         const data = await response.json();
         const { userId } = data;
         console.log(userId, "User id from response");
+        localStorage.setItem("userId", userId);
         setUserId(userId);
 
         router.push("/");

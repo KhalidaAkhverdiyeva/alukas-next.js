@@ -1,9 +1,8 @@
 "use client";
 import { Product } from "@/type/product";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import OverImageNav from "./overimageNav";
 import Link from "next/link";
-import { useUser } from "@/Context/userContext";
 
 interface ProductCardProps {
   product: Product;

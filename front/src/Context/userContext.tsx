@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface UserContextType {
   userId: string | null;
@@ -16,6 +22,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [userId, setUserId] = useState<string | null>(null);
   const [wishlist, setWishlist] = useState<string[]>([]);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   console.log("userid from usecontext", userId);
 
