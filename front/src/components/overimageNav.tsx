@@ -1,6 +1,5 @@
 "use client";
 import { useUser } from "@/Context/userContext";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { HiOutlineArrowPath } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
@@ -11,51 +10,34 @@ interface OverImageNavProps {
 }
 
 const OverImageNav: React.FC<OverImageNavProps> = ({ productId }) => {
-  const { userId, wishlist, addToWishlist, removeFromWishlist } = useUser();
-  const [isInWishlist, setIsInWishlist] = useState(
-    wishlist.includes(productId)
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { wishlist, addToWishlist, removeFromWishlist, isLoading } = useUser();
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
   useEffect(() => {
-    const checkWishlist = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/api/wishlist/wishlist/${userId}`,
-          {
-            params: { productId },
-          }
-        );
-        if (response.data.exists) {
-          setIsInWishlist(true);
-        }
-      } catch (error) {
-        console.error("Error checking wishlist", error);
-      }
-    };
+    // Check if the product is in the wishlist
+    setIsInWishlist(wishlist.includes(productId));
+  }, [wishlist, productId]);
 
-    if (userId && productId) {
-      checkWishlist();
-    }
-  }, [userId, productId]);
+  if (isLoading) {
+    return <div>Loading wishlist...</div>; // Display loading indicator
+  }
 
-  const handleAddToWishlist = async (e: React.MouseEvent) => {
+  const handleWishlistToggle = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    try {
-      await axios.post("http://localhost:3000/api/wishlist/wishlist", {
-        userId,
-        productId,
-      });
+    if (isInWishlist) {
+      await removeFromWishlist(productId);
+      setIsInWishlist(false);
+    } else {
+      await addToWishlist(productId);
       setIsInWishlist(true);
-    } catch (error) {
-      console.error("Error adding to wishlist", error);
     }
   };
-
   return (
     <>
       <div className="absolute top-2 right-[-50px] flex flex-col gap-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-[-60px] transition-all duration-1000">
         <div className="relative bg-white rounded-full p-2 cursor-pointer group">
-          <div onClick={handleAddToWishlist} className="cursor-pointer">
+          <div onClick={handleWishlistToggle} className="cursor-pointer">
             {isInWishlist ? (
               <PiHeartFill className="text-red-600" size={24} />
             ) : (
