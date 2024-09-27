@@ -49,9 +49,6 @@ const getProduct = async (req, res) => {
             }
         }
 
-        console.log("Filter:", filter);
-
-
         const products = await Product.find(filter)
             .skip((page - 1) * limit)
             .limit(Number(limit));
@@ -85,7 +82,22 @@ const getProductByTitle = async (req, res) => {
     }
 };
 
+const getProductsByIds = async (req, res) => {
+    const { productIds } = req.body;
 
+    try {
+
+        const products = await Product.find({ _id: { $in: productIds } });
+
+        if (!products || products.length === 0) {
+            return res.status(404).json({ message: 'No products found' });
+        }
+
+        return res.status(200).json({ products });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error fetching products', error });
+    }
+};
 
 const addProduct = async (req, res) => {
     const {
@@ -140,8 +152,6 @@ const addProduct = async (req, res) => {
         res.status(500).json({ msg: 'Server error', err });
     }
 };
-
-
 
 const deleteProduct = async (req, res) => {
     const { id } = req.params;
@@ -219,4 +229,4 @@ const editProduct = async (req, res) => {
     }
 };
 
-module.exports = { getProduct, addProduct, deleteProduct, getProductByTitle, editProduct };
+module.exports = { getProduct, addProduct, deleteProduct, getProductByTitle, editProduct, getProductsByIds };

@@ -42,7 +42,7 @@ const AuthRegister = async (req, res) => {
 
 const AuthLogin = async (req, res) => {
     const { username, password } = req.body;
-    console.log('Login request received:', { username, password });
+
 
     try {
         const user = await User.findOne({ username });

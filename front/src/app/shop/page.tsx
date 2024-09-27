@@ -71,10 +71,7 @@ const ShopPage = () => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log("Fetching products with:", {
-        minPrice: price[0],
-        maxPrice: price[1],
-      });
+
       setProducts(data.products);
       setTotalProducts(data.totalCount);
     } catch (err) {

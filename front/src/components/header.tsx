@@ -94,20 +94,37 @@ const Header = () => {
             </svg>
           </div>
           <div className="flex gap-[10px] items-center justify-end w-[560px]">
-            <Link href="/dashboard">
-              <CiUser className="w-[28px] h-[28px] text-black" />
-            </Link>
+            <div className="relative group inline-block">
+              <Link href="/dashboard">
+                <CiUser className="w-[28px] h-[28px] text-black" />
+              </Link>
+              <span className="absolute top-[35px] left-1/2 transform -translate-x-1/2 -translate-y-[5px] whitespace-nowrap text-xs bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                Admin
+                <span className="absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-x-[5px] border-x-transparent border-b-[5px] border-b-black"></span>
+              </span>
+            </div>
 
-            <div className="relative inline-block">
-              <PiHeartThin className="w-[28px] h-[28px] text-black" />
+            <div className="relative group inline-block">
+              <Link href="/wishlist">
+                <PiHeartThin className="w-[28px] h-[28px] text-black" />
+                <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[15px] h-[15px] bg-black text-white text-xs rounded-full">
+                  0
+                </span>
+              </Link>
+              <span className="absolute top-[35px] left-1/2 transform -translate-x-1/2 -translate-y-[5px] whitespace-nowrap text-xs bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                Wishlist
+                <span className="absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-x-[5px] border-x-transparent border-b-[5px] border-b-black"></span>
+              </span>
+            </div>
+
+            <div className="relative group inline-block">
+              <PiShoppingCartSimpleLight className="w-[28px] h-[28px] text-[#3c3b3b]" />
               <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[15px] h-[15px] bg-black text-white text-xs rounded-full">
                 0
               </span>
-            </div>
-            <div className="relative inline-block">
-              <PiShoppingCartSimpleLight className="w-[28px] h-[28px] text-[#3c3b3b] " />
-              <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[15px] h-[15px] bg-black text-white text-xs rounded-full">
-                0
+              <span className="absolute top-[35px] left-1/2 transform -translate-x-1/2 -translate-y-[5px] whitespace-nowrap text-xs bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                Cart
+                <span className="absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-x-[5px] border-x-transparent border-b-[5px] border-b-black"></span>
               </span>
             </div>
           </div>

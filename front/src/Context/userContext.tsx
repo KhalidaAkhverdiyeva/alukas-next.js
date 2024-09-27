@@ -42,6 +42,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [userId]);
 
   const addToWishlist = async (productId: string) => {
+    if (wishlist.includes(productId)) {
+      console.log("This product is already in your wishlist!");
+      return;
+    }
     try {
       await axios.post("http://localhost:3000/api/wishlist/wishlist", {
         userId,
@@ -71,7 +75,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <UserContext.Provider
-      value={{ userId, setUserId, wishlist, addToWishlist, removeFromWishlist }}
+      value={{
+        userId,
+        setUserId,
+        wishlist,
+        setWishlist,
+        addToWishlist,
+        removeFromWishlist,
+      }}
     >
       {children}
     </UserContext.Provider>

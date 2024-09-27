@@ -6,9 +6,10 @@ import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
+  isInWishlist?: boolean;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product }) => {
+const ProductCard: FC<ProductCardProps> = ({ product, isInWishlist }) => {
   const productId = product._id;
 
   return (
@@ -43,7 +44,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             className="absolute inset-0 aspect-square w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"
           />
         </div>
-        <OverImageNav productId={productId} />
+        <OverImageNav productId={productId} isInWishlistPage={isInWishlist} />
       </div>
 
       <div className="flex flex-col items-center justify-center mt-[15px] relative">
