@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
@@ -29,12 +28,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
             `http://localhost:3000/api/wishlist/wishlist/${userId}`
           );
 
-          setWishlist(response.data.wishlist || []);
+          // Set wishlist from response
+          setWishlist(response.data || []);
+          console.log(response.data, "form context");
         } catch (error) {
           console.error("Error fetching wishlist:", error);
         } finally {
           setIsLoading(false);
         }
+      } else {
+        setWishlist([]);
+        setIsLoading(false);
       }
     };
 
@@ -79,7 +83,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         userId,
         setUserId,
         wishlist,
-        setWishlist,
+        isLoading,
         addToWishlist,
         removeFromWishlist,
       }}

@@ -11,10 +11,12 @@ import { IoLocationOutline } from "react-icons/io5";
 import DropdownMenu from "./dropdown";
 
 import Link from "next/link";
+import { useUser } from "@/Context/userContext";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const { wishlist } = useUser();
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -108,7 +110,7 @@ const Header = () => {
               <Link href="/wishlist">
                 <PiHeartThin className="w-[28px] h-[28px] text-black" />
                 <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[15px] h-[15px] bg-black text-white text-xs rounded-full">
-                  0
+                  {wishlist.length}
                 </span>
               </Link>
               <span className="absolute top-[35px] left-1/2 transform -translate-x-1/2 -translate-y-[5px] whitespace-nowrap text-xs bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
