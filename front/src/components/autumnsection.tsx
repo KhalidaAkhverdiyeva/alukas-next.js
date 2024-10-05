@@ -14,7 +14,7 @@ const AutumnSection = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/product/all?collectionName=Middle%20of%20North"
+          "http://localhost:3001/api/product/all?collectionName=Middle%20of%20North"
         );
         const data = await response.json();
         setProducts(data.products);

@@ -25,7 +25,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsLoading(true);
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/wishlist/wishlist/${userId}`
+            `http://localhost:3001/api/wishlist/wishlist/${userId}`
           );
 
           // Set wishlist from response
@@ -51,7 +51,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
     try {
-      await axios.post("http://localhost:3000/api/wishlist/wishlist", {
+      await axios.post("http://localhost:3001/api/wishlist/wishlist", {
         userId,
         productId,
       });
@@ -63,12 +63,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeFromWishlist = async (productId: string) => {
     try {
-      await axios.delete(
-        `http://localhost:3000/api/wishlist/wishlist/${userId}`,
-        {
-          data: { productId },
-        }
-      );
+      await axios.delete(`http://localhost:/api/wishlist/wishlist/${userId}`, {
+        data: { productId },
+      });
       setWishlist((prevWishlist) =>
         prevWishlist.filter((id) => id !== productId)
       );

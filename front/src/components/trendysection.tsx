@@ -15,7 +15,7 @@ const TrendySection = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/product/all?collectionName=Royal%20Love"
+          "http://localhost:3001/api/product/all?collectionName=Royal%20Love"
         );
         const data = await response.json();
         setProducts(data.products);

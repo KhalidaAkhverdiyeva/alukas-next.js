@@ -65,7 +65,7 @@ const ShopPage = () => {
       }).toString();
 
       const response = await fetch(
-        `http://localhost:3000/api/product/all?${queryParams}`
+        `http://localhost:3001/api/product/all?${queryParams}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");

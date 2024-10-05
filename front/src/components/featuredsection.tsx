@@ -22,7 +22,7 @@ const FeauturedSection = () => {
       };
 
       const response = await fetch(
-        `http://localhost:3000/api/product/all?collectionName=${categoryEndpointMap[category]}`
+        `http://localhost:3001/api/product/all?collectionName=${categoryEndpointMap[category]}`
       );
       const data = await response.json();
       setProducts(data.products);

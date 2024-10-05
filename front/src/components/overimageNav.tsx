@@ -35,11 +35,11 @@ const OverImageNav: React.FC<OverImageNavProps> = ({
     if (isInWishlist) {
       await removeFromWishlist(productId);
       console.log("Removing from wishlist:", productId);
-      setIsInWishlist(false); // Update the local state immediately
+      setIsInWishlist(false);
     } else {
       await addToWishlist(productId);
       console.log("Adding to wishlist:", productId);
-      setIsInWishlist(true); // Update the local state immediately
+      setIsInWishlist(true);
     }
   };
 
