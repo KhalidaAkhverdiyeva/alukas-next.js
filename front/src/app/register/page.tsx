@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TbEyeClosed } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
+import { useUser } from "@/Context/userContext";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const { setUserId } = useUser();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -37,7 +39,10 @@ export default function RegisterPage() {
 
       if (response.ok) {
         console.log("Registration successful");
-
+        const data = await response.json();
+        const { userId } = data;
+        localStorage.setItem("userId", userId);
+        setUserId(userId);
         router.push("/");
       } else {
         console.error("Registration failed:", response.statusText);

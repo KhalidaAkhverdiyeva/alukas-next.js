@@ -22,7 +22,7 @@ const WishlistPage = () => {
     const fetchWishlist = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/wishlist/wishlist/${userId}`
+          `http://localhost:3001/api/wishlist/${userId}`
         );
         const wishlistData = response.data;
 
@@ -57,7 +57,7 @@ const WishlistPage = () => {
     console.log("Removing item with ID:", wishlistItemId);
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/wishlist/wishlist/${wishlistItemId}`
+        `http://localhost:3001/api/wishlist/${wishlistItemId}`
       );
       console.log("Delete Response:", response.data);
       setProducts((prevProducts) =>

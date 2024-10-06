@@ -32,14 +32,22 @@ const OverImageNav: React.FC<OverImageNavProps> = ({
 
   const handleWishlistToggle = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isInWishlist) {
-      await removeFromWishlist(productId);
-      console.log("Removing from wishlist:", productId);
-      setIsInWishlist(false);
-    } else {
-      await addToWishlist(productId);
-      console.log("Adding to wishlist:", productId);
-      setIsInWishlist(true);
+
+    // Optimistically update the heart icon
+    setIsInWishlist(!isInWishlist);
+
+    try {
+      if (isInWishlist) {
+        await removeFromWishlist(productId);
+        console.log("Removing from wishlist:", productId);
+      } else {
+        await addToWishlist(productId);
+        console.log("Adding to wishlist:", productId);
+      }
+    } catch (error) {
+      // Revert the UI change in case of an API failure
+      setIsInWishlist(isInWishlist);
+      console.error("Error updating wishlist:", error);
     }
   };
 

@@ -11,7 +11,7 @@ const TripleSection: React.FC = () => {
   useEffect(() => {
     const fetchHeroes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/hero/all");
+        const response = await fetch("http://localhost:3001/api/hero/all");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

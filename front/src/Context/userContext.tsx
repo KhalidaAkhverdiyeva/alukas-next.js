@@ -14,6 +14,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
+    console.log(storedUserId, "userid");
     if (storedUserId) {
       setUserId(storedUserId);
     }
@@ -25,10 +26,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsLoading(true);
         try {
           const response = await axios.get(
-            `http://localhost:3001/api/wishlist/wishlist/${userId}`
+            `http://localhost:3001/api/wishlist/${userId}`
           );
 
-          // Set wishlist from response
           setWishlist(response.data || []);
           console.log(response.data, "form context");
         } catch (error) {
@@ -51,7 +51,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
     try {
-      await axios.post("http://localhost:3001/api/wishlist/wishlist", {
+      await axios.post("http://localhost:3001/api/wishlist", {
         userId,
         productId,
       });
@@ -63,7 +63,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeFromWishlist = async (productId: string) => {
     try {
-      await axios.delete(`http://localhost:/api/wishlist/wishlist/${userId}`, {
+      await axios.delete(`http://localhost:/api/wishlist/${userId}`, {
         data: { productId },
       });
       setWishlist((prevWishlist) =>
