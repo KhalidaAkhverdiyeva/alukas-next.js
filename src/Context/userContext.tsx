@@ -10,7 +10,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [userId, setUserId] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("userId");
+      const storedUserId = localStorage.getItem("userId");
+      return storedUserId;
     }
     return null;
   });
@@ -20,6 +21,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (userId) {
       localStorage.setItem("userId", userId);
+      console.log("User ID set in context:", userId);
     } else {
       localStorage.removeItem("userId");
     }
@@ -33,9 +35,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           const response = await axios.get(
             `https://alukas-back.onrender.com/api/wishlist/${userId}`
           );
-
           setWishlist(response.data || []);
-          console.log(response.data, "form context");
+          console.log("Wishlist fetched:", response.data);
         } catch (error) {
           console.error("Error fetching wishlist:", error);
         } finally {

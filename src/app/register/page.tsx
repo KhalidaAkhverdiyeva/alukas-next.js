@@ -41,15 +41,15 @@ export default function RegisterPage() {
       console.log(response);
 
       if (response.ok) {
-        console.log("Registration successful");
         const data = await response.json();
         const { userId } = data;
-        localStorage.setItem("userId", userId);
+        console.log("Registration successful", data);
         setUserId(userId);
         router.push("/");
       } else {
-        console.error("Registration failed:", response.statusText);
-        alert("Registration failed");
+        const errorData = await response.json();
+        console.error("Registration failed:", errorData);
+        alert(errorData.message || "Registration failed");
       }
     } catch (error) {
       console.error("An error occurred:", error);
