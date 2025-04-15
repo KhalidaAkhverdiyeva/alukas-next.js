@@ -15,7 +15,7 @@ const TrendySection = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/product/all?collectionName=Royal%20Love"
+          "https://alukas-back.onrender.com/api/product/all?collectionName=Royal%20Love"
         );
         const data = await response.json();
         setProducts(data.products);

@@ -22,7 +22,7 @@ const FeauturedSection = () => {
       };
 
       const response = await fetch(
-        `http://localhost:3001/api/product/all?collectionName=${categoryEndpointMap[category]}`
+        `https://alukas-back.onrender.com/api/product/all?collectionName=${categoryEndpointMap[category]}`
       );
       const data = await response.json();
       setProducts(data.products);

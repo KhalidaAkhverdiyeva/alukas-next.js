@@ -22,7 +22,7 @@ const WishlistPage = () => {
     const fetchWishlist = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/wishlist/${userId}`
+          `https://alukas-back.onrender.com/api/wishlist/${userId}`
         );
         const wishlistData = response.data;
 
@@ -32,7 +32,7 @@ const WishlistPage = () => {
 
         if (productIds.length > 0) {
           const productResponse = await axios.post(
-            "http://localhost:3001/api/product/getProductsByIds",
+            "https://alukas-back.onrender.com/api/product/getProductsByIds",
             {
               productIds,
             }
@@ -57,7 +57,7 @@ const WishlistPage = () => {
     console.log("Removing item with ID:", wishlistItemId);
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/wishlist/${wishlistItemId}`
+        `https://alukas-back.onrender.com/api/wishlist/${wishlistItemId}`
       );
       console.log("Delete Response:", response.data);
       setProducts((prevProducts) =>

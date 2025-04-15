@@ -27,14 +27,17 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password, confirmPassword }),
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://alukas-back.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password, confirmPassword }),
+          credentials: "include",
+        }
+      );
       console.log(response);
 
       if (response.ok) {

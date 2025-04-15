@@ -26,7 +26,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsLoading(true);
         try {
           const response = await axios.get(
-            `http://localhost:3001/api/wishlist/${userId}`
+            `https://alukas-back.onrender.com/api/wishlist/${userId}`
           );
 
           setWishlist(response.data || []);
@@ -51,7 +51,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
     try {
-      await axios.post("http://localhost:3001/api/wishlist", {
+      await axios.post("https://alukas-back.onrender.com/api/wishlist", {
         userId,
         productId,
       });

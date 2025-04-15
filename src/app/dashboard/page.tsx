@@ -111,7 +111,7 @@
 //                   <img
 //                     src={
 //                       blog.image
-//                         ? `http://localhost:3001/${blog.image.replace(
+//                         ? `https://alukas-back.onrender.com/${blog.image.replace(
 //                             /\\/g,
 //                             "/"
 //                           )}`

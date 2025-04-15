@@ -38,7 +38,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/product/all?collectionName=Art%20by%20Saviola"
+          "https://alukas-back.onrender.com/api/product/all?collectionName=Art%20by%20Saviola"
         );
         const data = await response.json();
         setProducts(data.products);
@@ -54,7 +54,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/product/${params.title}`
+          `https://alukas-back.onrender.com/api/product/${params.title}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

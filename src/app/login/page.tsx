@@ -22,14 +22,17 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://alukas-back.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
