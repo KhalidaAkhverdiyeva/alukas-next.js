@@ -8,17 +8,22 @@ const UserContext = createContext<any>(null);
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("userId");
+    }
+    return null;
+  });
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    console.log(storedUserId, "userid");
-    if (storedUserId) {
-      setUserId(storedUserId);
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    } else {
+      localStorage.removeItem("userId");
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const fetchWishlist = async () => {
