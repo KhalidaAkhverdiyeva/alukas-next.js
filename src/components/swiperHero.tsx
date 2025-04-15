@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 
@@ -77,10 +78,14 @@ const SwiperComponent: React.FC = () => {
               SHOP NOW
             </button>
           </div>
-          <img
+          <Image
             src={slide.image}
             alt={`Slide ${index + 1}`}
             className="absolute inset-0 w-full h-full object-cover z-0"
+            width={1800}
+            height={563}
+
+
           />
         </div>
       ))}

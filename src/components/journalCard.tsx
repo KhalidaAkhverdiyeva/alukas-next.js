@@ -1,11 +1,12 @@
 import { Journal } from "@/type/jorunalProps";
+import Image from "next/image";
 import React from "react";
 
 const JournalCard: React.FC<Journal> = ({ image, title }) => {
   return (
     <div className="py-[20px]">
       <div className="relative ">
-        <img src={image} alt="" className="relative" />
+        <Image src={image} alt="" className="relative" width={930} height={604} />
         <p className="uppercase bg-[#222] absolute top-4 left-4 text-white text-[14px] font-[500] px-[8px]">
           Accessories
         </p>

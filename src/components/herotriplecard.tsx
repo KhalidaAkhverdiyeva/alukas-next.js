@@ -1,4 +1,5 @@
 import { HeroCardProps } from "@/type/herocardprops";
+import Image from "next/image";
 import React from "react";
 
 const HeroCard: React.FC<HeroCardProps> = ({
@@ -10,7 +11,9 @@ const HeroCard: React.FC<HeroCardProps> = ({
 }) => {
   return (
     <div className="flex-1 relative group overflow-hidden">
-      <img
+      <Image
+      width={436}
+      height={300}
         src={imageUrl}
         alt={title}
         className="relative w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"

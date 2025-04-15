@@ -40,7 +40,7 @@ const FeauturedSection = () => {
     };
 
     initialFetch();
-  }, []);
+  }, [activeCategory]);
 
   const handleCategoryChange = async (category: string) => {
     setTransitioning(true);

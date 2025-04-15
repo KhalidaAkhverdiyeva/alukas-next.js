@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { GoChevronDown } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
@@ -18,7 +18,7 @@ const Header = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const { wishlist } = useUser();
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
 
     if (scrollTop > 200) {
@@ -28,14 +28,14 @@ const Header = () => {
     }
 
     setIsHeaderVisible(scrollTop <= 200 || isSticky);
-  };
+  }, [isSticky]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isSticky]);
+  }, [handleScroll]);
 
   return (
     <div

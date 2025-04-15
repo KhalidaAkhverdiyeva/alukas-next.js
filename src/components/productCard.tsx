@@ -3,6 +3,7 @@ import { Product } from "@/type/product";
 import React, { FC } from "react";
 import OverImageNav from "./overimageNav";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: Product;
@@ -33,12 +34,16 @@ const ProductCard: FC<ProductCardProps> = ({ product, isInWishlist }) => {
           )}
         </div>
         <div>
-          <img
+          <Image
+            width={600}
+            height={600}
             src={product.smallCardImage}
             alt={product.title}
             className="w-full h-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
           />
-          <img
+          <Image
+            width={600}
+            height={600}
             src={product.smallCardHoverImage}
             alt={`${product.title} - Hover`}
             className="absolute inset-0 aspect-square w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-110 transform"

@@ -5,13 +5,14 @@ import ProductCard from "@/components/productCard";
 import SkeletonLoader from "@/components/shopPageSkeleton";
 import { Product } from "@/type/product";
 import { BreadCrumb } from "primereact/breadcrumb";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { CiBoxList, CiGrid41 } from "react-icons/ci";
 import { IoChevronDownOutline, IoCloseOutline } from "react-icons/io5";
 import { RiFilterLine } from "react-icons/ri";
 import { TfiLayoutGrid4 } from "react-icons/tfi";
 import Sidebar from "../../components/filterSideBar";
+import Image from "next/image";
 
 const ShopPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -49,48 +50,52 @@ const ShopPage = () => {
     }
   };
 
-  const fetchProducts = async (page: number) => {
-    setLoading(true);
-    try {
-      const queryParams = new URLSearchParams({
-        page: String(page),
-        limit: String(productsPerPage),
-        collectionName: collectionName || "",
-        color: color || "",
-        size: size || "",
-        material: material || "",
-        availability: availability || "",
-        minPrice: String(price[0]),
-        maxPrice: String(price[1]),
-      }).toString();
+  const fetchProducts = useCallback(
+    async (page: number) => {
+      setLoading(true);
+      try {
+        const queryParams = new URLSearchParams({
+          page: String(page),
+          limit: String(productsPerPage),
+          collectionName: collectionName || "",
+          color: color || "",
+          size: size || "",
+          material: material || "",
+          availability: availability || "",
+          minPrice: String(price[0]),
+          maxPrice: String(price[1]),
+        }).toString();
 
-      const response = await fetch(
-        `http://localhost:3001/api/product/all?${queryParams}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const response = await fetch(
+          `http://localhost:3001/api/product/all?${queryParams}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+
+        setProducts(data.products);
+        setTotalProducts(data.totalCount);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
       }
-      const data = await response.json();
+    },
+    [
+      productsPerPage,
+      collectionName,
+      color,
+      size,
+      material,
+      availability,
+      price,
+    ]
+  );
 
-      setProducts(data.products);
-      setTotalProducts(data.totalCount);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error");
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [
-    currentPage,
-    collectionName,
-    color,
-    size,
-    material,
-    availability,
-    isNewProduct,
-  ]);
+  }, [currentPage, fetchProducts]);
 
   if (loading)
     return (
@@ -202,10 +207,12 @@ const ShopPage = () => {
         onPriceChange={handlePriceChange}
       />
       <div className="relative">
-        <img
+        <Image
           src="https://demo-alukas.myshopify.com/cdn/shop/files/alk_bg_collections.jpg?v=1711247313"
           alt=""
           className="relative"
+          width={1440}
+          height={225}
         />
         <div className="absolute top-[80px] left-[700px]">
           <div className="text-[45px] ">Shops</div>
