@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TbEyeClosed } from "react-icons/tb";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaSpinner } from "react-icons/fa";
 import { useUser } from "@/Context/userContext";
 
 export default function RegisterPage() {
@@ -11,6 +11,7 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setUserId } = useUser();
 
@@ -20,9 +21,11 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (password !== confirmPassword) {
       alert("Passwords do not match");
+      setIsLoading(false);
       return;
     }
 
@@ -59,6 +62,8 @@ export default function RegisterPage() {
     } catch (error) {
       console.error("An error occurred:", error);
       alert("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,9 +135,19 @@ export default function RegisterPage() {
           </div>
           <button
             type="submit"
-            className="w-full py-[10px] px-[45px] bg-[#222222] text-[18px] text-white focus:outline-none transition-colors duration-300 ease-in-out hover:bg-black hover:text-white"
+            disabled={isLoading}
+            className={`w-full py-[10px] px-[45px] bg-[#222222] text-[18px] text-white focus:outline-none transition-colors duration-300 ease-in-out hover:bg-black hover:text-white flex items-center justify-center gap-2 ${
+              isLoading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Create Account
+            {isLoading ? (
+              <>
+                <FaSpinner className="animate-spin" />
+                Creating Account...
+              </>
+            ) : (
+              "Create Account"
+            )}
           </button>
           <button
             type="button"

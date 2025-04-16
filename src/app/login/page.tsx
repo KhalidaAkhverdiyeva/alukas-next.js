@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TbEyeClosed } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa";
 
 import React from "react";
 import { useUser } from "@/Context/userContext";
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { setUserId } = useUser();
   const router = useRouter();
 
@@ -20,6 +22,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await fetch(
@@ -53,6 +56,8 @@ export default function LoginPage() {
     } catch (error) {
       console.error("An error occurred:", error);
       alert("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,9 +105,19 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full py-[10px] px-[45px] bg-[#222222] text-[18px] text-white focus:outline-none transition-colors duration-300 ease-in-out "
+            disabled={isLoading}
+            className={`w-full py-[10px] px-[45px] bg-[#222222] text-[18px] text-white focus:outline-none transition-colors duration-300 ease-in-out flex items-center justify-center gap-2 ${
+              isLoading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Login
+            {isLoading ? (
+              <>
+                <FaSpinner className="animate-spin" />
+                Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
