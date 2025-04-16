@@ -36,8 +36,14 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        const { userId } = data;
+        const { userId, token } = data;
+        console.log("Full response data:", data);
+        console.log("Response headers:", response.headers);
         console.log(userId, "User id from response");
+
+        // Set the auth token as a cookie
+        document.cookie = `auth_token=${token}; path=/`;
+
         setUserId(userId);
         router.push("/");
       } else {

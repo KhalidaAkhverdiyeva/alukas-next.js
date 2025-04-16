@@ -11,6 +11,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [userId, setUserId] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
       const storedUserId = localStorage.getItem("userId");
+      console.log("Initial userId from localStorage:", storedUserId);
       return storedUserId;
     }
     return null;
@@ -18,12 +19,19 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const updateUserId = (newUserId: string | null) => {
+    console.log("Updating userId to:", newUserId);
+    setUserId(newUserId);
+  };
+
   useEffect(() => {
+    console.log("userId changed to:", userId);
     if (userId) {
       localStorage.setItem("userId", userId);
-      console.log("User ID set in context:", userId);
+      console.log("Stored userId in localStorage:", userId);
     } else {
       localStorage.removeItem("userId");
+      console.log("Removed userId from localStorage");
     }
   }, [userId]);
 
@@ -84,7 +92,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     <UserContext.Provider
       value={{
         userId,
-        setUserId,
+        setUserId: updateUserId,
         wishlist,
         isLoading,
         addToWishlist,

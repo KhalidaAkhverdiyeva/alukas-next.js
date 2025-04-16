@@ -42,8 +42,13 @@ export default function RegisterPage() {
 
       if (response.ok) {
         const data = await response.json();
-        const { userId } = data;
+        const { userId, token } = data;
         console.log("Registration successful", data);
+        console.log("Response headers:", response.headers);
+
+        // Set the auth token as a cookie
+        document.cookie = `auth_token=${token}; path=/`;
+
         setUserId(userId);
         router.push("/");
       } else {
