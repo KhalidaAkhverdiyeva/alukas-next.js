@@ -15,7 +15,7 @@ const ConditionalLayout: React.FC<{ children: React.ReactNode }> = ({
   ) : (
     <>
       <Header />
-      {/* {children} */}
+      {children}
       <Footer />
     </>
   );
