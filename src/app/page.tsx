@@ -28,8 +28,8 @@ export default async function HomePage() {
       <PopularSection />
       <TrendySection />
       <PinkBlock />
-      <AutumnSection />
-      <ShopNow /> */}
+      <AutumnSection /> */}
+      <ShopNow />
       <FeauturedSection />
       <CustomerReviewSection />
       <JournalSection />

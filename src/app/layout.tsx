@@ -22,8 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <head>
-        <link rel="icon" href="/gem.png" />
+      <head>
+        <link rel="icon" href="/diamond.png" />
       </head>
       <body className={`${jost.variable} ${jost.variable} antialiased`}>
         <UserProvider>

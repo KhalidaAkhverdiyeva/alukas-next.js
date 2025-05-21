@@ -3,7 +3,7 @@ import HeroCard from "./herotriplecard";
 
 const ShopNow = () => {
   return (
-    <div className="flex justify-center items-center w-[1360px] gap-[30px] my-[50px]">
+    <div className="flex flex-col md:flex-row justify-center items-center w-full max-w-[1360px] mx-auto gap-[20px] md:gap-[30px] my-[30px] md:my-[50px] px-4 md:px-0">
       <HeroCard
         imageUrl="https://demo-alukas.myshopify.com/cdn/shop/files/alk1_4.jpg?v=1710149492"
         title="New Bangles Collection"
