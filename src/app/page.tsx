@@ -27,8 +27,8 @@ export default async function HomePage() {
       <TripleSection />
       <PopularSection />
       <TrendySection />
-      <PinkBlock />
-      <AutumnSection /> */}
+      <PinkBlock /> */}
+      <AutumnSection />
       <ShopNow />
       <FeauturedSection />
       <CustomerReviewSection />
