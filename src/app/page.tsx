@@ -32,8 +32,8 @@ export default async function HomePage() {
       <ShopNow />
       <FeauturedSection />
       <CustomerReviewSection />
-      <JournalSection />
-      <FollowUsSection /> */}
+      <JournalSection /> */}
+      <FollowUsSection />
       <Subscribe />
     </div>
   );
