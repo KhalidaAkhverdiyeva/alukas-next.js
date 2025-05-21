@@ -31,7 +31,7 @@ const TrendySection = () => {
   }, []);
 
   return (
-    <div className="relative mb-[60px] px-2 md:px-4">
+    <div className="relative mb-[60px] w-full px-2 md:px-4">
       <div
         className="relative w-full md:max-w-[1360px] md:mx-auto flex flex-col items-center"
         onMouseEnter={() => setHovered(true)}
