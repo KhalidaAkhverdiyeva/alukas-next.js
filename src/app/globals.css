@@ -120,3 +120,25 @@ input[type="checkbox"]:checked::after {
   scrollbar-width: thin; /* Options: auto, thin */
   scrollbar-color: #d3d3d3 #f1f1f1; /* Thumb color (light gray), Track color (light gray) */
 }
+
+/* Swiper Styles */
+.shipping-swiper {
+  padding-bottom: 40px;
+}
+
+.shipping-swiper .swiper-pagination {
+  bottom: 0;
+  margin-top: 20px;
+}
+
+.shipping-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: #c6c6c6;
+  opacity: 1;
+  margin: 0 4px;
+}
+
+.shipping-swiper .swiper-pagination-bullet-active {
+  background: #222222;
+}
