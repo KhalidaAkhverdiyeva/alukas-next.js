@@ -29,8 +29,8 @@ export default async function HomePage() {
       <TrendySection />
       <PinkBlock />
       <AutumnSection />
-      <ShopNow />
-      <FeauturedSection /> */}
+      <ShopNow /> */}
+      <FeauturedSection />
       <CustomerReviewSection />
       <JournalSection />
       <FollowUsSection />

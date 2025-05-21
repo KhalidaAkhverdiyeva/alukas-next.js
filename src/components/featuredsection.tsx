@@ -50,18 +50,20 @@ const FeauturedSection = () => {
   };
 
   return (
-    <div className="relative mb-[60px]">
+    <div className="relative mb-[60px] px-2 md:px-4">
       <div
-        className="relative w-[1360px] flex flex-col items-center"
+        className="relative w-full md:max-w-[1360px] md:mx-auto flex flex-col items-center"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <h3 className="text-4xl pt-16">Feautured Products</h3>
-        <div className="py-8 text-[20px] flex gap-[20px]">
+        <h3 className="text-xl md:text-4xl pt-6 md:pt-16 text-center">
+          Featured Products
+        </h3>
+        <div className="py-3 md:py-8 text-[14px] md:text-[20px] flex flex-wrap justify-center gap-[8px] md:gap-[20px]">
           {["New Arrivals", "Featured", "Best Sellers"].map((category) => (
             <div
               key={category}
-              className={`cursor-pointer ${
+              className={`cursor-pointer whitespace-nowrap ${
                 activeCategory === category
                   ? "border-b-[2px] border-b-black text-black"
                   : "border-b-transparent text-gray-500"
@@ -75,19 +77,22 @@ const FeauturedSection = () => {
 
         <div className="overflow-hidden w-full">
           <div
-            className={`flex transition-all duration-500 ${
+            className={`flex w-[300px] md:w-full transition-all duration-500 ${
               transitioning ? "opacity-0" : "opacity-100"
             }`}
             style={{
               transform: `translateY(${
                 transitioning ? "30px" : "0"
-              }) translateX(-${(currentIndex * 100) / 4}%)`,
+              }) translateX(-${
+                (currentIndex * 100) /
+                (window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 4)
+              }%)`,
             }}
           >
             {products.map((item) => (
               <div
                 key={item.id}
-                className="w-[25%] flex-shrink-0 flex-grow-0 p-2"
+                className="w-full md:w-1/2 lg:w-1/4  flex-shrink-0 flex-grow-0 p-1 md:p-2 "
               >
                 <ProductCard product={item} />
               </div>
