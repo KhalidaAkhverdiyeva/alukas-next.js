@@ -30,8 +30,8 @@ export default async function HomePage() {
       <PinkBlock />
       <AutumnSection />
       <ShopNow />
-      <FeauturedSection />
-      <CustomerReviewSection /> */}
+      <FeauturedSection /> */}
+      <CustomerReviewSection />
       <JournalSection />
       <FollowUsSection />
       <Subscribe />
