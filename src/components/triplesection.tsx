@@ -29,11 +29,21 @@ const TripleSection: React.FC = () => {
     fetchHeroes();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading)
+    return (
+      <div className="w-full flex justify-center items-center min-h-[200px]">
+        Loading...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="w-full flex justify-center items-center min-h-[200px] text-red-500">
+        Error: {error}
+      </div>
+    );
 
   return (
-    <div className="w-[1360px] flex justify-center mt-[30px] gap-[30px] ">
+    <div className="w-full max-w-[1360px] mx-auto flex flex-col md:flex-row justify-center mt-[20px] md:mt-[30px] gap-[20px] md:gap-[30px] px-4 md:px-0">
       {heroes.map((hero) => (
         <HeroCard
           key={hero._id}

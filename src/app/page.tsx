@@ -23,11 +23,11 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      {/* <SwiperComponent />
+      <SwiperComponent />
       <TripleSection />
       <PopularSection />
       <TrendySection />
-      <PinkBlock /> */}
+      <PinkBlock />
       <AutumnSection />
       <ShopNow />
       <FeauturedSection />

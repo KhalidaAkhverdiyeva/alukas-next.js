@@ -3,9 +3,11 @@ import CircleCard from "./circlecard";
 
 const PopularSection = () => {
   return (
-    <div className="w-[1360px] flex flex-col items-center">
-      <h3 className="text-[40px] pt-[60px] pb-[30px]">Popular Categories</h3>
-      <div className="flex justify-between w-full">
+    <div className="w-full max-w-[1360px] mx-auto flex flex-col items-center px-4 md:px-0">
+      <h3 className="text-2xl md:text-[40px] pt-8 md:pt-[60px] pb-4 md:pb-[30px] text-center">
+        Popular Categories
+      </h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 w-full">
         <CircleCard
           imageUrl="https://demo-alukas.myshopify.com/cdn/shop/files/alk1_t1.jpg?v=1710145653&width=165"
           description="necklaces"

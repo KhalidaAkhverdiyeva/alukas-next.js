@@ -42,7 +42,7 @@ const SwiperComponent: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-[600px] overflow-hidden group">
+    <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group">
       {swiperImages.map((slide, index) => (
         <div
           key={index}
@@ -50,9 +50,9 @@ const SwiperComponent: React.FC = () => {
             currentIndex === index ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-10 max-w-[1360px] mx-auto z-10">
+          <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-4 md:px-10 max-w-[1360px] mx-auto z-10">
             <h1
-              className={`text-[50px] transition-all duration-1000 ease-in-out ${
+              className={`text-[28px] md:text-[40px] lg:text-[50px] transition-all duration-1000 ease-in-out ${
                 currentIndex === index
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-[10px]"
@@ -60,7 +60,7 @@ const SwiperComponent: React.FC = () => {
               dangerouslySetInnerHTML={{ __html: slide.title }}
             />
             <h2
-              className={`py-6 text-[24px] text-[rgb(85, 85, 85)] transition-all duration-1000 ease-in-out ${
+              className={`py-3 md:py-6 text-[16px] md:text-[20px] lg:text-[24px] text-[rgb(85, 85, 85)] transition-all duration-1000 ease-in-out ${
                 currentIndex === index
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-[10px]"
@@ -69,7 +69,7 @@ const SwiperComponent: React.FC = () => {
               {slide.desc}
             </h2>
             <button
-              className={`border-2 bg-transparent hover:bg-black border-black text-black px-10 py-3 transition-all duration-1000 ease-in-out hover:bg-main hover:text-white ${
+              className={`border-2 bg-transparent hover:bg-black border-black text-black px-6 md:px-10 py-2 md:py-3 text-sm md:text-base transition-all duration-1000 ease-in-out hover:bg-main hover:text-white ${
                 currentIndex === index
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-[10px]"
@@ -84,32 +84,31 @@ const SwiperComponent: React.FC = () => {
             className="absolute inset-0 w-full h-full object-cover z-0"
             width={1800}
             height={563}
-
-
+            priority={index === 0}
           />
         </div>
       ))}
 
       <button
         onClick={prevSlide}
-        className="absolute text-3xl transition opacity-0 z-[1] group-hover:opacity-65 duration-500 group-hover:translate-x-0 translate-x-[20px] left-5 rounded-full flex items-center justify-center top-1/2 transform -translate-y-1/2 p-2 text-black"
+        className="absolute text-2xl md:text-3xl transition opacity-0 z-[1] group-hover:opacity-65 duration-500 group-hover:translate-x-0 translate-x-[20px] left-2 md:left-5 rounded-full flex items-center justify-center top-1/2 transform -translate-y-1/2 p-2 text-black"
       >
         <TfiAngleLeft />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute text-3xl transition opacity-0 z-[1] group-hover:opacity-65 duration-500 group-hover:translate-x-0 -translate-x-[20px] right-5 rounded-full flex items-center justify-center top-1/2 transform -translate-y-1/2 p-2 text-black"
+        className="absolute text-2xl md:text-3xl transition opacity-0 z-[1] group-hover:opacity-65 duration-500 group-hover:translate-x-0 -translate-x-[20px] right-2 md:right-5 rounded-full flex items-center justify-center top-1/2 transform -translate-y-1/2 p-2 text-black"
       >
         <TfiAngleRight />
       </button>
 
-      <div className="absolute bottom-[30px] left-0 right-0 flex justify-center z-10">
+      <div className="absolute bottom-[15px] md:bottom-[30px] left-0 right-0 flex justify-center z-10">
         {swiperImages.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full mx-2 transition-all duration-300 ${
+            className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full mx-1.5 md:mx-2 transition-all duration-300 ${
               currentIndex === index
                 ? "bg-black"
                 : "bg-transparent border-solid border-black border-[1px]"
