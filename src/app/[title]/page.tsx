@@ -82,21 +82,20 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-[20px]">
-      <div className="w-[1360px] justify-center flex flex-col items-between pb-[100px]">
+    <div className="flex flex-col items-center justify-center py-[20px] px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1360px] justify-center flex flex-col items-between pb-[50px] md:pb-[100px]">
         <div className="flex justify-between w-full mb-[20px]">
           <CommonBreadcrumbs />
-          {/* <div>nese bir icon</div> */}
         </div>
 
-        <div className="flex gap-[80px]">
-          <div className="flex gap-[15px]  sticky top-[210px] h-full">
-            <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[80px]">
+          <div className="flex flex-col lg:flex-row gap-[15px] lg:sticky lg:top-[210px] h-full">
+            <div className="flex flex-row lg:flex-col gap-[10px] overflow-x-auto lg:overflow-x-visible">
               {product.detailImages && product.detailImages.length > 0 ? (
                 product.detailImages.map((image, index) => (
                   <div
                     key={index}
-                    className="w-[80px] h-[80px]"
+                    className="w-[80px] h-[80px] flex-shrink-0"
                     onClick={() => handleImageClick(image)}
                   >
                     <Image
@@ -113,7 +112,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               )}
             </div>
 
-            <div className="w-[555px] h-[555px]">
+            <div className="w-full lg:w-[555px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[555px]">
               <Image
                 src={currentImage || product.smallCardImage}
                 alt={product.title}
@@ -123,41 +122,43 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               />
             </div>
           </div>
-          <div className="overflow-auto h-full">
+          <div className="overflow-auto h-full w-full">
             <div className="border-b-[1px] border-b-gray-300 border-b-solid py-[10px]">
-              <h2 className="uppercase text-[#757575] pb-[10px]">
+              <h2 className="uppercase text-[#757575] pb-[10px] text-sm sm:text-base">
                 {product.name}
               </h2>
               {product.isNewProduct && (
-                <div className="bg-[#ac2929] w-[60px]  text-white py-1 px-3  mb-2">
+                <div className="bg-[#ac2929] w-[60px] text-white py-1 px-3 mb-2 text-sm">
                   New
                 </div>
               )}
-              <h2 className="text-[30px] text-[#222]">{product.title}</h2>
-              <div className="flex text-[18px] pb-[15px] pt-[5px] ml-[70px] gap-[10px] items-center">
+              <h2 className="text-[24px] sm:text-[30px] text-[#222]">
+                {product.title}
+              </h2>
+              <div className="flex flex-wrap text-[16px] sm:text-[18px] pb-[15px] pt-[5px] ml-0 sm:ml-[70px] gap-[10px] items-center">
                 <span className="text-[#555]">{product.reviews} reviews</span>
                 <ImFire className="text-red-800" />
                 <span>{product.sold} sold in last 16 hours</span>
               </div>
               <div className="flex items-center gap-[10px] py-[10px]">
-                <div className="text-[20px] text-[#222]">
+                <div className="text-[18px] sm:text-[20px] text-[#222]">
                   ${product.newPrice}.00
                 </div>
                 {product.oldPrice && (
-                  <div className="text-gray-400 text-[16px] text-end line-through font-[300]">
+                  <div className="text-gray-400 text-[14px] sm:text-[16px] text-end line-through font-[300]">
                     ${product.oldPrice}.00
                   </div>
                 )}
               </div>
-              <div className="text-[18px] text-[#555] pb-[10px]">
+              <div className="text-[16px] sm:text-[18px] text-[#555] pb-[10px]">
                 This regulator has a rolled diaphragm and high flow rate with
                 reduced pressure drop.It has an excellent degree of
                 condensation.
               </div>
-              <div className="flex gap-[7px] items-center py-[10px]">
+              <div className="flex gap-[7px] items-center py-[10px] text-sm sm:text-base">
                 <IoEyeOutline /> 25 people are viewing this right now
               </div>
-              <div className="flex gap-[20px] text-[18px] text-[#222] py-[10px]">
+              <div className="flex flex-wrap gap-[20px] text-[16px] sm:text-[18px] text-[#222] py-[10px]">
                 <div className="flex items-center gap-[5px]">
                   <IoBarChartOutline />
                   Size guide
@@ -173,8 +174,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </div>
             </div>
             <div className="py-[20px]">
-              <div className="text-[500]">Add your personalization</div>
-              <div className="py-[20px] text-[#555]">
+              <div className="text-[500] text-sm sm:text-base">
+                Add your personalization
+              </div>
+              <div className="py-[20px] text-[#555] text-sm sm:text-base">
                 Add your name, note or upload your customized idea image to
                 personalise your item. Custom items cannot be returned or
                 exchanged.
@@ -182,19 +185,21 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               <input
                 type="text"
                 placeholder="Customize note"
-                className="px-[20px] py-[10px] border-solid border-[1px] border-[#e5e5e5] outline-none w-full placeholder-gray-700 focus:border-[1px] focus:border-solid focus:border-black"
+                className="px-[20px] py-[10px] border-solid border-[1px] border-[#e5e5e5] outline-none w-full placeholder-gray-700 focus:border-[1px] focus:border-solid focus:border-black text-sm sm:text-base"
               />
-              <div className="flex items-center pl-[20px]  my-[10px] space-x-2 w-full justify-between  border-[1px] border-solid border-[#e5e5e5]">
-                <span className="text-gray-700">No file chosen</span>
+              <div className="flex items-center pl-[20px] my-[10px] space-x-2 w-full justify-between border-[1px] border-solid border-[#e5e5e5]">
+                <span className="text-gray-700 text-sm sm:text-base">
+                  No file chosen
+                </span>
                 <input id="file-upload" type="file" className="hidden" />
                 <label
                   htmlFor="file-upload"
-                  className="flex items-center cursor-pointer bg-[#f5f5f5] px-4  py-[10px]  text-gray-700"
+                  className="flex items-center cursor-pointer bg-[#f5f5f5] px-4 py-[10px] text-gray-700 text-sm sm:text-base"
                 >
                   <SlCloudUpload className="mr-2 text-[16px]" /> Upload Image
                 </label>
               </div>
-              <div className="flex gap-[10px] w-full h-[50px]">
+              <div className="flex flex-col sm:flex-row gap-[10px] w-full h-auto sm:h-[50px]">
                 <div className="flex flex-1 w-full border-solid border-[2px] border-gray-300">
                   <div className="w-[50px] h-[50px] flex justify-center items-center cursor-pointer">
                     -
@@ -213,7 +218,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                   Add to Cart
                 </div>
 
-                <div className="flex-1 flex w-full gap-[5px]">
+                <div className="flex flex-1 w-full gap-[5px]">
                   <div className="border-solid border-[2px] flex justify-center items-center border-gray-300 w-[50px] h-[50px]">
                     <PiHeartThin className="text-[26px]" />
                   </div>
@@ -230,14 +235,17 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 id="terms"
                 className="w-[16px] h-[16px] mr-[10px]"
               />
-              <label htmlFor="terms" className="cursor-pointer">
+              <label
+                htmlFor="terms"
+                className="cursor-pointer text-sm sm:text-base"
+              >
                 I agree with Terms & Conditions
               </label>
             </div>
-            <div className="uppercase  w-full bg-[#e3e1e1] h-[50px]  py-[15px] font-[500] text-center  text-[#222]">
+            <div className="uppercase w-full bg-[#e3e1e1] h-[50px] py-[15px] font-[500] text-center text-[#222] text-sm sm:text-base">
               Buy it now
             </div>
-            <div className="text-[#555] pb-[20px]">
+            <div className="text-[#555] pb-[20px] text-sm sm:text-base">
               <div className="flex gap-[5px] items-center pt-[10px]">
                 <IoMdCheckmark />
                 Pickup available at{" "}
@@ -258,23 +266,21 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 purchase. Duties & taxes are non-refundable.
               </div>
             </div>
-            <div className="py-[20px] border-t-solid border-t-gray-300 border-t-[1px] ">
+            <div className="py-[20px] border-t-solid border-t-gray-300 border-t-[1px] text-sm sm:text-base">
               <div className="flex items-center mb-[5px] gap-[5px]">
-                <span className=" mr-[5px] w-[80px]">SKU:</span>
+                <span className="mr-[5px] w-[80px]">SKU:</span>
                 <span className="text-[#757575]">N/A</span>
               </div>
               <div className="flex items-center mb-[5px] gap-[5px]">
-                <span className=" mr-[5px] w-[80px]">Available:</span>
+                <span className="mr-[5px] w-[80px]">Available:</span>
                 <span className="text-[#757575]">In Stock</span>{" "}
               </div>
               <div className="flex items-center mb-[5px] gap-[5px]">
-                <span className=" mr-[5px] w-[80px]">Vendor:</span>
+                <span className="mr-[5px] w-[80px]">Vendor:</span>
                 <span className="text-[#757575]">Champion</span>
               </div>
-              <div className="flex gap-[5px]">
-                <span className=" mr-[5px] w-[80px] gap-[5px]">
-                  Collections:
-                </span>
+              <div className="flex flex-col sm:flex-row gap-[5px]">
+                <span className="mr-[5px] w-[80px]">Collections:</span>
                 <span className="text-[#757575]">
                   Accessories, Bracelets, Earrings, Featured, Home Page,
                   Necklaces, Rings
@@ -282,14 +288,14 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </div>
             </div>
             <div className="relative border border-gray-300 w-full mx-auto my-[20px] px-[20px] py-[22px]">
-              <div className="absolute -top-[10px] left-1/2 transform -translate-x-1/2 bg-white px-[10px] text-center font-semibold">
+              <div className="absolute -top-[10px] left-1/2 transform -translate-x-1/2 bg-white px-[10px] text-center font-semibold text-sm sm:text-base">
                 Guarantee Safe Checkout
               </div>
 
               <Image
                 src="https://demo-alukas.myshopify.com/cdn/shop/files/trust_badge.png?v=1712024964&width=533"
                 alt="Trust Badge"
-                className="mx-auto"
+                className="mx-auto w-full max-w-[410px]"
                 width={410}
                 height={36}
               />
@@ -297,25 +303,25 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
           </div>
         </div>
       </div>
-      <div className=" w-full flex flex-col justify-center items-center ">
-        <div className="py-[50px]border-t-solid border-t-[1px] w-full flex flex-col items-center border-t-gray-300">
-          <div className="flex gap-[50px] text-[26px] py-[20px]  ">
+      <div className="w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+        <div className="py-[50px] border-t-solid border-t-[1px] w-full flex flex-col items-center border-t-gray-300">
+          <div className="flex flex-wrap justify-center gap-[20px] sm:gap-[50px] text-[20px] sm:text-[26px] py-[20px]">
             <div>Description</div>
             <div>Customer Reviews</div>
             <div>Shipping & Returns</div>
             <div>Return Policies</div>
           </div>
-          <div className="w-[1360px] text-[#555]">
-            <div className="flex gap-[50px] py-[10px] ">
+          <div className="w-full max-w-[1360px] text-[#555]">
+            <div className="flex flex-col lg:flex-row gap-[50px] py-[10px]">
               <div className="flex-1">
-                <h4 className="text-[20px] text-[#222] font-[500] py-[10px]">
+                <h4 className="text-[18px] sm:text-[20px] text-[#222] font-[500] py-[10px]">
                   Outstanding Features
                 </h4>
-                <div className="text-[18px]">
+                <div className="text-[16px] sm:text-[18px]">
                   <p className="mb-[20px]">
                     The garments labelled as committed are products that have
                     been produced using sustainable fibres or processes,
-                    reducing their environmental impact. Umino’s goal is to
+                    reducing their environmental impact. Umino&apos;s goal is to
                     support the implementation of practices more committed to
                     the environment.
                   </p>
@@ -330,10 +336,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 </div>
               </div>
               <div className="flex-1">
-                <h4 className="text-[20px] text-[#222] font-[500] py-[10px]">
+                <h4 className="text-[18px] sm:text-[20px] text-[#222] font-[500] py-[10px]">
                   Washing Instructions
                 </h4>
-                <div className="text-[18px]">
+                <div className="text-[16px] sm:text-[18px]">
                   <div className="flex gap-[10px] items-center mb-[10px]">
                     <TbWashPress className="text-[34px]" /> Machine wash max.
                     30ºC. Short spin.
@@ -357,22 +363,24 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 </div>
               </div>
             </div>
-            <div className="text-[18px] py-[30px]">
+            <div className="text-[16px] sm:text-[18px] py-[30px]">
               We work with monitoring programmes to ensure compliance with our
               social, environmental and health and safety standards for our
               garments. To assess compliance, we have developed a programme of
               audits and continuous improvement plans. Made of super-soft
               cotton, the Organic Cotton Cutaway Tank features a high neck and
               back, and a slight curve at the shoulders, which makes it extra
-              flattering. If there’s one thing the ’90s got right, it’s the
+              flattering. If there&apos;s one thing the &apos;90s got right, it&apos;s the
               basics.
             </div>
           </div>
         </div>
-        <div className="w-[1360px] flex flex-col items-center py-[50px]">
-          <h2 className="text-[40px] text-[#222]">People Also Bought</h2>
-          <p className="text-[20px] text-[#555]">
-            Here’s some of our most similar products people are buying. Click to
+        <div className="w-full max-w-[1360px] flex flex-col items-center py-[50px]">
+          <h2 className="text-[30px] sm:text-[40px] text-[#222] text-center">
+            People Also Bought
+          </h2>
+          <p className="text-[16px] sm:text-[20px] text-[#555] text-center px-4">
+            Here&apos;s some of our most similar products people are buying. Click to
             discover trending style.
           </p>
           <div className="overflow-hidden w-full">
@@ -385,7 +393,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               {products.map((item) => (
                 <div
                   key={item.id}
-                  className="w-[25%] flex-shrink-0 flex-grow-0 p-2 py-[40px] overflow-hidden"
+                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex-shrink-0 flex-grow-0 p-2 py-[40px] overflow-hidden"
                 >
                   <ProductCard product={item} />
                 </div>
